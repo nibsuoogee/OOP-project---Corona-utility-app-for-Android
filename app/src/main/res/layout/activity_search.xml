@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Search">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart1"
+            android:layout_width="383dp"
+            android:layout_height="268dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.129" />
+
+        <Spinner
+            android:id="@+id/spinnerAreas"
+            android:layout_width="236dp"
+            android:layout_height="41dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.091"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.584" />
+
+        <SurfaceView
+            android:id="@+id/surfaceView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/purple_500"
+            android:translationZ="-5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/spinnerAreas"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerAreas"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/spinnerAreas"
+            app:layout_constraintTop_toTopOf="@+id/spinnerAreas"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Spinner
+            android:id="@+id/spinnerWeeks"
+            android:layout_width="139dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/spinnerAreas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toEndOf="@+id/spinnerAreas"
+            app:layout_constraintTop_toTopOf="@+id/spinnerAreas"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/week"
+            app:layout_constraintBottom_toTopOf="@+id/spinnerWeeks"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerWeeks"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/spinnerWeeks" />
+
+        <SurfaceView
+            android:id="@+id/surfaceView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/grey"
+            android:translationZ="-5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/spinnerWeeks"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerWeeks"
+            app:layout_constraintStart_toStartOf="@+id/spinnerWeeks"
+            app:layout_constraintTop_toTopOf="@+id/spinnerWeeks" />
+
+        <TextView
+            android:id="@+id/textViewArea"
+            android:layout_width="321dp"
+            android:layout_height="28dp"
+            android:text="Area"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.209"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerAreas"
+            app:layout_constraintVertical_bias="0.187" />
+
+        <TextView
+            android:id="@+id/textViewInfections"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/infections"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textViewArea"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewArea"
+            app:layout_constraintTop_toBottomOf="@+id/textViewArea"
+            app:layout_constraintVertical_bias="0.066" />
+
+        <TextView
+            android:id="@+id/textViewInfectionsVal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewInfections"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.182"
+            app:layout_constraintStart_toEndOf="@+id/textViewInfections"
+            app:layout_constraintTop_toTopOf="@+id/textViewInfections"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vaccinations"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewInfections"
+            app:layout_constraintTop_toBottomOf="@+id/textViewInfections"
+            app:layout_constraintVertical_bias="0.106" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/grey"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
+        app:menu="@menu/menu_navigation" />
+
+</RelativeLayout>

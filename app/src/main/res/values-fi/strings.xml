@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Olio_HT</string>
+    <string name="welcome">Tervetuloa</string>
+    <string name="home">Koti</string>
+    <string name="search">Haku</string>
+    <string name="settings">Asetukset</string>
+    <string name="language">Kieli</string>
+    <string name="week">Viikko</string>
+    <string name="area">Alue</string>
+    <string name="no_data">Ei dataa</string>
+    <string name="infections">Tartuntoja</string>
+    <string name="vaccinations">Rokotuksia</string>
+    <string-array name="spinner_names">
+        <item>"language"</item>
+        <item>"englanti"</item>
+        <item>"suomi"</item>
+    </string-array>
+</resources>
