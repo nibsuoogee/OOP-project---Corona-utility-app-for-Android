@@ -35,12 +35,9 @@ public class EntryWeek {
         this.valueValue = valv;
     }
 
-
     public EntryWeek(String ke, String val, String lab) {
         this.indexKey = ke;
         this.indexValue = val;
         this.labelValue = lab;
     }
-
-
 }

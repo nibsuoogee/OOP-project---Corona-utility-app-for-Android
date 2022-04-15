@@ -39,26 +39,40 @@ import java.util.Map;
 
 public class AreaManager {
     float reference_timestamp = 1.5775704e12f;
-    private ArrayList<EntryWeek> entryList = null;
-    private ArrayList<AreaCode> areaCodeList = null;
+    private ArrayList<InfectionWeek> InfectionList = null;
+    private ArrayList<VaccinationWeek> VaccinationList = null;
+    private ArrayList<AreaCode> areaCodeListInf = null;
+    private ArrayList<AreaCode> areaCodeListVac = null;
     private ArrayList<BarEntry> infectionsList = new ArrayList<>();
+    private ArrayList<BarEntry> vaccinationsList = new ArrayList<>();
     private ArrayList<String> labelList = new ArrayList<>();
     private ArrayList<String> weekList = new ArrayList<>();
     private Date date;
     private Timestamp timestamp;
 
     public AreaManager() {
-        entryList = new ArrayList<>();
-        areaCodeList = new ArrayList<>();
+        InfectionList = new ArrayList<>();
+        VaccinationList = new ArrayList<>();
+        areaCodeListInf = new ArrayList<>();
+        areaCodeListVac = new ArrayList<>();
+        URL urlInfectionIds = null;
+        URL urlVaccinationIds = null;
         try {
-            readJSONid();
+            urlInfectionIds = new URL("https://sampo.thl.fi/pivot/prod/fi/epirapo/covid19case/" +
+                    "fact_epirapo_covid19case.dimensions.json");
+            areaCodeListInf = readJSONid(urlInfectionIds);
+            urlVaccinationIds = new URL("https://sampo.thl.fi/pivot/prod/fi/vaccreg/cov19cov/" +
+                    "fact_cov19cov.dimensions.json");
+            areaCodeListVac = readJSONid(urlVaccinationIds);
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
 
     public String getInfection(String label) {
-        EntryWeek ew = entryList.stream()
+        InfectionWeek ew = InfectionList.stream()
                 .filter(ew1 -> ew1.getLabelValue().equals(label))
                 .findFirst()
                 .orElse(null);
@@ -66,7 +80,7 @@ public class AreaManager {
     }
 
     public ArrayList<BarEntry> getInfections() {
-        for(EntryWeek ew: entryList) {
+        for(InfectionWeek ew: InfectionList) {
             if (ew.getValueValue() != null) {
                 String Infections = ew.getValueValue();
                 String InfRegex = ew.getLabelValue().replaceAll("[a-zA-Z ]","");
@@ -82,6 +96,7 @@ public class AreaManager {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                    System.out.println(timestamp);
                     infectionsList.add(new BarEntry((new Long(timestamp.getTime()).floatValue()-reference_timestamp), Integer.parseInt(Infections)));
                 }
             }
@@ -89,15 +104,40 @@ public class AreaManager {
         return(infectionsList);
     }
 
+    public ArrayList<BarEntry> getVaccinations() {
+        for(VaccinationWeek ew: VaccinationList) {
+            if (ew.getValueValue() != null) {
+                String Infections = ew.getValueValue();
+                String InfRegex = ew.getLabelValue().replaceAll("[a-zA-Z ]","");
+                if (Infections.equals("..")) {
+                    Infections = "0";
+                }
+                if (!InfRegex.equals("")) {
+                    //Integer.parseInt(InfRegex)
+                    SimpleDateFormat df = new SimpleDateFormat("yyyyww");
+                    try {
+                        Date parsedDate = df.parse(InfRegex);
+                        timestamp = new Timestamp(parsedDate.getTime());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(timestamp);
+                    vaccinationsList.add(new BarEntry((new Long(timestamp.getTime()).floatValue()-reference_timestamp), Integer.parseInt(Infections)));
+                }
+            }
+        }
+        return(infectionsList);
+    }
+
     public ArrayList<String> getLabels() {
-        for(AreaCode ac: areaCodeList) {
+        for(AreaCode ac: areaCodeListInf) {
             labelList.add(ac.getLabel());
         }
         return(labelList);
     }
 
     public ArrayList<String> getWeeks() {
-        for(EntryWeek ew: entryList) {
+        for(InfectionWeek ew: InfectionList) {
             if (ew.getValueValue() != null) {
                 weekList.add(ew.getLabelValue());
             }
@@ -105,9 +145,9 @@ public class AreaManager {
         return(weekList);
     }
 
-    public void readJSON (String label) throws JSONException {
+    public void readInfectionJSON (String label) throws JSONException {
         URL url = null;
-        AreaCode acl = areaCodeList.stream()
+        AreaCode acl = areaCodeListInf.stream()
                 .filter(acl1 -> acl1.getLabel().equals(label))
                 .findFirst()
                 .orElse(null);
@@ -148,10 +188,10 @@ public class AreaManager {
         }
 
         for(int i = 0; i<jIndex.names().length(); i++){
-            EntryWeek ew = new EntryWeek(jIndex.names().getString(i),
+            InfectionWeek iw = new InfectionWeek(jIndex.names().getString(i),
                     jIndex.get(jIndex.names().getString(i)).toString(),
                     jLabel.get(jLabel.names().getString(i)).toString());
-            entryList.add(ew);
+            InfectionList.add(iw);
         }
 
         JSONObject jValue = null;
@@ -165,24 +205,87 @@ public class AreaManager {
         for(int i = 0; i<jValue.names().length(); i++){
             String newValuekey = jValue.names().getString(i);
             String newValueValue = jValue.get(jValue.names().getString(i)).toString();
-            EntryWeek ew = entryList.stream()
+            InfectionWeek iw = InfectionList.stream()
                     .filter(ew1 -> ew1.getIndexValue().equals(newValuekey))
                     .findFirst()
                     .orElse(null);
-            if (ew != null) {
-                ew.setValueValue(newValueValue);
+            if (iw != null) {
+                iw.setValueValue(newValueValue);
             }
         }
     }
 
-    public void readJSONid () throws JSONException {
-        // id & sid
+    public void readVaccinationJSON (String label) throws JSONException {
         URL url = null;
+        AreaCode acl = areaCodeListVac.stream()
+                .filter(acl1 -> acl1.getLabel().equals(label))
+                .findFirst()
+                .orElse(null);
         try {
-            url = new URL("https://sampo.thl.fi/pivot/prod/fi/epirapo/covid19case/fact_epirapo_covid19case.dimensions.json");
+            url = new URL("https://sampo.thl.fi/pivot/prod/fi/vaccreg/cov19cov/fact_cov19cov.json?row="
+                    +acl.getId()+"-"+acl.getSid()+".&column=dateweek20201226-525425&filter=measure-533175");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        String json= getJSON(url);
+        JSONObject jObject = null;
+        try {
+            jObject = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject jIndex = null;
+        try {
+            jIndex = jObject.getJSONObject("dataset")
+                    .getJSONObject("dimension")
+                    .getJSONObject("dateweek20200101")
+                    .getJSONObject("category")
+                    .getJSONObject("index");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject jLabel = null;
+        try {
+            jLabel = jObject.getJSONObject("dataset")
+                    .getJSONObject("dimension")
+                    .getJSONObject("dateweek20200101")
+                    .getJSONObject("category")
+                    .getJSONObject("label");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        for(int i = 0; i<jIndex.names().length(); i++){
+            VaccinationWeek vw = new VaccinationWeek(jIndex.names().getString(i),
+                    jIndex.get(jIndex.names().getString(i)).toString(),
+                    jLabel.get(jLabel.names().getString(i)).toString());
+            VaccinationList.add(vw);
+        }
+
+        JSONObject jValue = null;
+        try {
+            jValue = jObject.getJSONObject("dataset")
+                    .getJSONObject("value");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        for(int i = 0; i<jValue.names().length(); i++){
+            String newValuekey = jValue.names().getString(i);
+            String newValueValue = jValue.get(jValue.names().getString(i)).toString();
+            VaccinationWeek vw = VaccinationList.stream()
+                    .filter(ew1 -> ew1.getIndexValue().equals(newValuekey))
+                    .findFirst()
+                    .orElse(null);
+            if (vw != null) {
+                vw.setValueValue(newValueValue);
+            }
+        }
+    }
+
+    public ArrayList<AreaCode> readJSONid (URL url) throws JSONException {
         String json = getJSON(url);
         JSONArray jArray = null;
         json = json.replaceFirst("thl.pivot.loadDimensions"+"[(]","");
@@ -204,7 +307,7 @@ public class AreaManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        ArrayList<AreaCode> areaCodeList = new ArrayList<>();
         for(int i = 0; i<jSHP.length(); i++){
             for(int j = 0; j<jSHP.getJSONObject(i).getJSONArray("children").length(); j++) {
                 JSONObject jArea = jSHP.getJSONObject(i).getJSONArray("children").getJSONObject(j);
@@ -215,6 +318,7 @@ public class AreaManager {
                 areaCodeList.add(aw);
             }
         }
+        return(areaCodeList);
     }
 
     public String getJSON(URL url) {

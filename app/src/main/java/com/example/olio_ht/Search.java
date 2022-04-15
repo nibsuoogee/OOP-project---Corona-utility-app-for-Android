@@ -27,6 +27,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,8 +43,11 @@ public class Search extends AppCompatActivity {
     private ArrayList<String> weekList;
     private ArrayList<String> labelList;
     private ArrayList<BarEntry> infectionList;
+    private ArrayList<BarEntry> vaccinationsList;
     private AreaManager am;
-    private long referenceTimestamp;
+    float reference_timestamp = 1.5775704e12f;
+    Long referenceTimestamp;
+
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter1;
     Spinner spinnerWeeks;
@@ -77,43 +82,41 @@ public class Search extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 try {
                     area = adapterView.getItemAtPosition(i).toString();
-                    am.readJSON(area);
+                    am.readInfectionJSON(area);
+                    am.readVaccinationJSON(area);
                     weekList = am.getWeeks();
                     Collections.reverse(weekList);
                     adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, weekList);
                     spinnerWeeks.setAdapter(adapter1);
 
                     infectionList = am.getInfections();
+                    vaccinationsList = am.getVaccinations();
 
-                    XAxis xAxis = barChart.getXAxis();
+                    java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf("2019-12-29 00:00:00.0");
+                    long referenceTimestamp = ts2.getTime();
                     IndexAxisValueFormatter xAxisFormatter = new HourAxisValueFormatter(referenceTimestamp);
+                    XAxis xAxis = barChart.getXAxis();
                     xAxis.setValueFormatter(xAxisFormatter);
-                    /*xAxis.setValueFormatter(new DateValueFormatter() {
-                        private final SimpleDateFormat mFormat = new SimpleDateFormat("yyyyww", Locale.ENGLISH);
-                        @Override
-                        public String getFormattedValue(float value, AxisBase axis) {
 
-                            return mFormat.format(new Date(new Float(value).longValue()).toString());
-                        }
-                    });*/
-                    BarDataSet barDataSet = new BarDataSet(infectionList, "Infections");
-                    barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-                    barDataSet.setValueTextColor(Color.RED);
-                    barDataSet.setValueTextSize(16f);
-                    BarData barData = new BarData(barDataSet);
-                    barData.setBarWidth(20f);
-                    barChart.setFitBars(true);
-                    barChart.setData(barData);
-
+                    BarDataSet barDataSet1 = new BarDataSet(infectionList, "Infections");
+                    barDataSet1.setColors(Color.rgb(155,0,0));
+                    barDataSet1.setValueTextColor(Color.RED);
+                    barDataSet1.setValueTextSize(16f);
+                    BarDataSet barDataSet2 = new BarDataSet(vaccinationsList, "Vaccinations");
+                    barDataSet2.setColors(Color.rgb(0,0,155));
+                    barDataSet2.setValueTextColor(Color.BLUE);
+                    barDataSet2.setValueTextSize(16f);
                     ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-                    dataSets.add(barDataSet);
+                    dataSets.add(barDataSet1);
+                    dataSets.add(barDataSet2);
 
                     BarData data = new BarData(dataSets);
                     data.setValueTextSize(10f);
-                    data.setBarWidth(0.9f);
+                    data.setBarWidth(20f);
 
                     barChart.setData(data);
-                    barChart.notifyDataSetChanged();
+                    //barChart.notifyDataSetChanged();
+                    barChart.invalidate();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
