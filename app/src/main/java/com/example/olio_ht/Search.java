@@ -13,14 +13,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -42,8 +49,8 @@ import com.github.mikephil.charting.charts.BarChart;
 public class Search extends AppCompatActivity {
     private ArrayList<String> weekList;
     private ArrayList<String> labelList;
-    private ArrayList<BarEntry> infectionList;
-    private ArrayList<BarEntry> vaccinationsList;
+    private List<Entry> infectionList;
+    private List<Entry> vaccinationsList;
     private AreaManager am;
     float reference_timestamp = 1.5775704e12f;
     Long referenceTimestamp;
@@ -56,7 +63,7 @@ public class Search extends AppCompatActivity {
     String infections;
     TextView textViewInfectionsVal;
     TextView textViewArea;
-    private BarChart barChart;
+    private LineChart barChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,30 +99,34 @@ public class Search extends AppCompatActivity {
                     infectionList = am.getInfections();
                     vaccinationsList = am.getVaccinations();
 
-                    java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf("2019-12-29 00:00:00.0");
-                    long referenceTimestamp = ts2.getTime();
-                    IndexAxisValueFormatter xAxisFormatter = new HourAxisValueFormatter(referenceTimestamp);
-                    XAxis xAxis = barChart.getXAxis();
-                    xAxis.setValueFormatter(xAxisFormatter);
+                    //java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf("2019-12-29 00:00:00.0");
+                    //long referenceTimestamp = ts2.getTime();
+                    //IndexAxisValueFormatter xAxisFormatter = new HourAxisValueFormatter(referenceTimestamp);
+                    //XAxis xAxis = barChart.getXAxis();
+                    //xAxis.setValueFormatter(xAxisFormatter);
 
-                    BarDataSet barDataSet1 = new BarDataSet(infectionList, "Infections");
-                    barDataSet1.setColors(Color.rgb(155,0,0));
+                    LineDataSet barDataSet1 = new LineDataSet(infectionList, "Infections");
+                    barDataSet1.setColor(Color.RED);
                     barDataSet1.setValueTextColor(Color.RED);
-                    barDataSet1.setValueTextSize(16f);
-                    BarDataSet barDataSet2 = new BarDataSet(vaccinationsList, "Vaccinations");
-                    barDataSet2.setColors(Color.rgb(0,0,155));
+                    //barDataSet1.setBarBorderWidth(4f);
+                    //barDataSet1.setBarBorderColor(Color.RED);
+                    //barDataSet1.setValueTextSize(14f);
+                    LineDataSet barDataSet2 = new LineDataSet(vaccinationsList, "Vaccinations");
+                    barDataSet2.setColor(Color.BLUE);
+                    //barDataSet2.setBarBorderWidth(2f);
+                    //barDataSet2.setBarBorderColor(Color.BLUE);
                     barDataSet2.setValueTextColor(Color.BLUE);
-                    barDataSet2.setValueTextSize(16f);
-                    ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+                    //barDataSet2.setValueTextSize(8f);
+
+                    List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
                     dataSets.add(barDataSet1);
                     dataSets.add(barDataSet2);
 
-                    BarData data = new BarData(dataSets);
-                    data.setValueTextSize(10f);
-                    data.setBarWidth(20f);
+                    //data.addDataSet(barDataSet1);
+                    //data.addDataSet(barDataSet2);
 
+                    LineData data = new LineData(dataSets);
                     barChart.setData(data);
-                    //barChart.notifyDataSetChanged();
                     barChart.invalidate();
 
                 } catch (JSONException e) {

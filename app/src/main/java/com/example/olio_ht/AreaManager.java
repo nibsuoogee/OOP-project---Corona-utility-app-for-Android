@@ -11,6 +11,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,16 +44,14 @@ public class AreaManager {
     private ArrayList<VaccinationWeek> VaccinationList = null;
     private ArrayList<AreaCode> areaCodeListInf = null;
     private ArrayList<AreaCode> areaCodeListVac = null;
-    private ArrayList<BarEntry> infectionsList = new ArrayList<>();
-    private ArrayList<BarEntry> vaccinationsList = new ArrayList<>();
+    private List<Entry> infectionsList = new ArrayList<>();
+    private List<Entry> vaccinationsList = new ArrayList<>();
     private ArrayList<String> labelList = new ArrayList<>();
     private ArrayList<String> weekList = new ArrayList<>();
     private Date date;
     private Timestamp timestamp;
 
     public AreaManager() {
-        InfectionList = new ArrayList<>();
-        VaccinationList = new ArrayList<>();
         areaCodeListInf = new ArrayList<>();
         areaCodeListVac = new ArrayList<>();
         URL urlInfectionIds = null;
@@ -79,7 +78,7 @@ public class AreaManager {
         return(ew.getValueValue());
     }
 
-    public ArrayList<BarEntry> getInfections() {
+    public List<Entry> getInfections() {
         for(InfectionWeek ew: InfectionList) {
             if (ew.getValueValue() != null) {
                 String Infections = ew.getValueValue();
@@ -96,15 +95,16 @@ public class AreaManager {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    System.out.println(timestamp);
-                    infectionsList.add(new BarEntry((new Long(timestamp.getTime()).floatValue()-reference_timestamp), Integer.parseInt(Infections)));
+                    infectionsList.add(new Entry(
+                            (new Long(timestamp.getTime()).floatValue()-reference_timestamp),
+                            Integer.parseInt(Infections)));
                 }
             }
         }
         return(infectionsList);
     }
 
-    public ArrayList<BarEntry> getVaccinations() {
+    public List<Entry> getVaccinations() {
         for(VaccinationWeek ew: VaccinationList) {
             if (ew.getValueValue() != null) {
                 String Infections = ew.getValueValue();
@@ -121,8 +121,9 @@ public class AreaManager {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    System.out.println(timestamp);
-                    vaccinationsList.add(new BarEntry((new Long(timestamp.getTime()).floatValue()-reference_timestamp), Integer.parseInt(Infections)));
+                    vaccinationsList.add(new Entry(
+                            (new Long(timestamp.getTime()).floatValue()-reference_timestamp+(float) 500),
+                            Integer.parseInt(Infections)));
                 }
             }
         }
@@ -187,6 +188,7 @@ public class AreaManager {
             e.printStackTrace();
         }
 
+        InfectionList = new ArrayList<>();
         for(int i = 0; i<jIndex.names().length(); i++){
             InfectionWeek iw = new InfectionWeek(jIndex.names().getString(i),
                     jIndex.get(jIndex.names().getString(i)).toString(),
@@ -239,7 +241,7 @@ public class AreaManager {
         try {
             jIndex = jObject.getJSONObject("dataset")
                     .getJSONObject("dimension")
-                    .getJSONObject("dateweek20200101")
+                    .getJSONObject("dateweek20201226")
                     .getJSONObject("category")
                     .getJSONObject("index");
         } catch (JSONException e) {
@@ -250,13 +252,14 @@ public class AreaManager {
         try {
             jLabel = jObject.getJSONObject("dataset")
                     .getJSONObject("dimension")
-                    .getJSONObject("dateweek20200101")
+                    .getJSONObject("dateweek20201226")
                     .getJSONObject("category")
                     .getJSONObject("label");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        VaccinationList = new ArrayList<>();
         for(int i = 0; i<jIndex.names().length(); i++){
             VaccinationWeek vw = new VaccinationWeek(jIndex.names().getString(i),
                     jIndex.get(jIndex.names().getString(i)).toString(),
