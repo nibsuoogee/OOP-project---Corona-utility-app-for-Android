@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.Olio_HT">
+        android:theme="@style/Theme.Olio_HT"
+        android:hardwareAccelerated="true">
+
 
         <activity
             android:name=".Settings"

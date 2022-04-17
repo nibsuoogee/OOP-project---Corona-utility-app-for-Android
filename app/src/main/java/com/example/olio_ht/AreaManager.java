@@ -44,8 +44,8 @@ public class AreaManager {
     private ArrayList<VaccinationWeek> VaccinationList = null;
     private ArrayList<AreaCode> areaCodeListInf = null;
     private ArrayList<AreaCode> areaCodeListVac = null;
-    private List<Entry> infectionsList = new ArrayList<>();
-    private List<Entry> vaccinationsList = new ArrayList<>();
+    private List<BarEntry> infectionsList = new ArrayList<>();
+    private List<BarEntry> vaccinationsList = new ArrayList<>();
     private ArrayList<String> labelList = new ArrayList<>();
     private ArrayList<String> weekList = new ArrayList<>();
     private Date date;
@@ -78,13 +78,31 @@ public class AreaManager {
         return(ew.getValueValue());
     }
 
-    public List<Entry> getInfections() {
+    public String getVaccination(String label) {
+        VaccinationWeek vw = VaccinationList.stream()
+                .filter(vw1 -> vw1.getLabelValue().equals(label))
+                .findFirst()
+                .orElse(null);
+        try {
+            vw.getValueValue();
+        } catch (NullPointerException e){
+            String zero = "0";
+            return(zero);
+        }
+        return(vw.getValueValue());
+    }
+
+    public List<BarEntry> getInfections() {
+        infectionsList.clear();
         for(InfectionWeek ew: InfectionList) {
             if (ew.getValueValue() != null) {
                 String Infections = ew.getValueValue();
                 String InfRegex = ew.getLabelValue().replaceAll("[a-zA-Z ]","");
                 if (Infections.equals("..")) {
                     Infections = "0";
+                }
+                if (Infections.equals("0")) {
+                    continue;
                 }
                 if (!InfRegex.equals("")) {
                     //Integer.parseInt(InfRegex)
@@ -95,7 +113,7 @@ public class AreaManager {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    infectionsList.add(new Entry(
+                    infectionsList.add(new BarEntry(
                             (new Long(timestamp.getTime()).floatValue()-reference_timestamp),
                             Integer.parseInt(Infections)));
                 }
@@ -104,13 +122,17 @@ public class AreaManager {
         return(infectionsList);
     }
 
-    public List<Entry> getVaccinations() {
+    public List<BarEntry> getVaccinations() {
+        vaccinationsList.clear();
         for(VaccinationWeek ew: VaccinationList) {
             if (ew.getValueValue() != null) {
-                String Infections = ew.getValueValue();
+                String Vaccinations = ew.getValueValue();
                 String InfRegex = ew.getLabelValue().replaceAll("[a-zA-Z ]","");
-                if (Infections.equals("..")) {
-                    Infections = "0";
+                if (Vaccinations.equals("..")) {
+                    Vaccinations = "0";
+                }
+                if (Vaccinations.equals("0")) {
+                    continue;
                 }
                 if (!InfRegex.equals("")) {
                     //Integer.parseInt(InfRegex)
@@ -121,9 +143,9 @@ public class AreaManager {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    vaccinationsList.add(new Entry(
-                            (new Long(timestamp.getTime()).floatValue()-reference_timestamp+(float) 500),
-                            Integer.parseInt(Infections)));
+                    vaccinationsList.add(new BarEntry(
+                            (new Long(timestamp.getTime()).floatValue()-reference_timestamp),
+                            Integer.parseInt(Vaccinations)));
                 }
             }
         }

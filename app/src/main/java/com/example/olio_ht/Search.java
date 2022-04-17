@@ -3,6 +3,7 @@ package com.example.olio_ht;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
@@ -49,30 +52,33 @@ import com.github.mikephil.charting.charts.BarChart;
 public class Search extends AppCompatActivity {
     private ArrayList<String> weekList;
     private ArrayList<String> labelList;
-    private List<Entry> infectionList;
-    private List<Entry> vaccinationsList;
+    private List<BarEntry> infectionList;
+    private List<BarEntry> vaccinationsList;
     private AreaManager am;
-    float reference_timestamp = 1.5775704e12f;
-    Long referenceTimestamp;
-
-    ArrayAdapter<String> adapter;
-    ArrayAdapter<String> adapter1;
-    Spinner spinnerWeeks;
-    String area;
-    String week;
-    String infections;
-    TextView textViewInfectionsVal;
-    TextView textViewArea;
-    private LineChart barChart;
+    private float reference_timestamp = 1.5775704e12f;
+    private Long referenceTimestamp;
+    private ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> adapter1;
+    private Spinner spinnerWeeks;
+    private String area;
+    private String week;
+    private String infections;
+    private String vaccinations;
+    private TextView textViewInfectionsVal;
+    private TextView textViewVaccinationsVal;
+    private TextView textViewArea;
+    private Context context = null;
+    private BarChart barChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+        //context = activity_search.this;
         barChart = findViewById(R.id.chart1);
 
         textViewInfectionsVal = (TextView) findViewById(R.id.textViewInfectionsVal);
+        textViewVaccinationsVal = (TextView) findViewById(R.id.textViewVaccinationsVal);
         textViewArea = (TextView) findViewById(R.id.textViewArea);
         am = new AreaManager();
         weekList = new ArrayList<>();
@@ -99,33 +105,23 @@ public class Search extends AppCompatActivity {
                     infectionList = am.getInfections();
                     vaccinationsList = am.getVaccinations();
 
-                    //java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf("2019-12-29 00:00:00.0");
-                    //long referenceTimestamp = ts2.getTime();
-                    //IndexAxisValueFormatter xAxisFormatter = new HourAxisValueFormatter(referenceTimestamp);
-                    //XAxis xAxis = barChart.getXAxis();
-                    //xAxis.setValueFormatter(xAxisFormatter);
+                    XAxis xAxis = barChart.getXAxis();
+                    xAxis.setValueFormatter(new LineChartXAxisValueFormatter());
 
-                    LineDataSet barDataSet1 = new LineDataSet(infectionList, "Infections");
+                    BarDataSet barDataSet1 = new BarDataSet(infectionList, getString(R.string.infections));
+                    BarDataSet barDataSet2 = new BarDataSet(vaccinationsList, getString(R.string.vaccinations));
                     barDataSet1.setColor(Color.RED);
-                    barDataSet1.setValueTextColor(Color.RED);
-                    //barDataSet1.setBarBorderWidth(4f);
-                    //barDataSet1.setBarBorderColor(Color.RED);
-                    //barDataSet1.setValueTextSize(14f);
-                    LineDataSet barDataSet2 = new LineDataSet(vaccinationsList, "Vaccinations");
                     barDataSet2.setColor(Color.BLUE);
-                    //barDataSet2.setBarBorderWidth(2f);
-                    //barDataSet2.setBarBorderColor(Color.BLUE);
-                    barDataSet2.setValueTextColor(Color.BLUE);
-                    //barDataSet2.setValueTextSize(8f);
 
-                    List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-                    dataSets.add(barDataSet1);
-                    dataSets.add(barDataSet2);
+                    BarData data = new BarData();
+                    data.addDataSet(barDataSet1);
+                    data.addDataSet(barDataSet2);
 
-                    //data.addDataSet(barDataSet1);
-                    //data.addDataSet(barDataSet2);
+                    data.setBarWidth(1e8f);
+                    data.setValueTextSize(10f);
 
-                    LineData data = new LineData(dataSets);
+                    barChart.getDescription().setEnabled(false);
+                    barChart.setMaxVisibleValueCount(700);
                     barChart.setData(data);
                     barChart.invalidate();
 
@@ -155,9 +151,17 @@ public class Search extends AppCompatActivity {
                 textViewArea.setText(area + ": " + week);
                 if (infections.equals("..")) {
                     textViewInfectionsVal.setText(getString(R.string.no_data));
-                    return;
+                } else {
+                    textViewInfectionsVal.setText(infections);
                 }
-                textViewInfectionsVal.setText(infections);
+                vaccinations = am.getVaccination(week);
+                if ((vaccinations == null) || (vaccinations.equals(".."))) {
+                    textViewVaccinationsVal.setText(getString(R.string.no_data));
+                    return;
+                } else {
+                    textViewVaccinationsVal.setText(vaccinations);
+                }
+
             }
 
             @Override
