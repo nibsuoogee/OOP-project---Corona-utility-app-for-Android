@@ -80,17 +80,17 @@
 
         <TextView
             android:id="@+id/textViewArea"
-            android:layout_width="321dp"
+            android:layout_width="304dp"
             android:layout_height="28dp"
             android:text="Area"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.209"
+            app:layout_constraintHorizontal_bias="0.607"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinnerAreas"
-            app:layout_constraintVertical_bias="0.187" />
+            app:layout_constraintVertical_bias="0.186" />
 
         <TextView
             android:id="@+id/textViewInfections"
@@ -138,6 +138,19 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/textViewInfectionsVal"
             app:layout_constraintTop_toTopOf="@+id/textView4"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="31dp"
+            android:layout_height="27dp"
+            android:button="@drawable/checkbox_selector"
+            app:buttonTint="@color/grey"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewArea"
+            app:layout_constraintEnd_toStartOf="@+id/textViewArea"
+            app:layout_constraintHorizontal_bias="0.65"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewArea"
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,8 +55,6 @@ public class Search extends AppCompatActivity {
     private List<BarEntry> infectionList;
     private List<BarEntry> vaccinationsList;
     private AreaManager am;
-    private float reference_timestamp = 1.5775704e12f;
-    private Long referenceTimestamp;
     private ArrayAdapter<String> adapter;
     private ArrayAdapter<String> adapter1;
     private Spinner spinnerWeeks;

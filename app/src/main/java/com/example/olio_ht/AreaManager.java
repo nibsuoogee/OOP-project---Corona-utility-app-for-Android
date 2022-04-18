@@ -48,7 +48,6 @@ public class AreaManager {
     private List<BarEntry> vaccinationsList = new ArrayList<>();
     private ArrayList<String> labelList = new ArrayList<>();
     private ArrayList<String> weekList = new ArrayList<>();
-    private Date date;
     private Timestamp timestamp;
 
     public AreaManager() {
