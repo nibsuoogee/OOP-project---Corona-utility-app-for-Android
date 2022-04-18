@@ -98,14 +98,10 @@ public class AreaManager {
             if (ew.getValueValue() != null) {
                 String Infections = ew.getValueValue();
                 String InfRegex = ew.getLabelValue().replaceAll("[a-zA-Z ]","");
-                if (Infections.equals("..")) {
-                    Infections = "0";
-                }
-                if (Infections.equals("0")) {
+                if (Infections.equals("..") || Infections.equals("0")) {
                     continue;
                 }
                 if (!InfRegex.equals("")) {
-                    //Integer.parseInt(InfRegex)
                     SimpleDateFormat df = new SimpleDateFormat("yyyyww");
                     try {
                         Date parsedDate = df.parse(InfRegex);
@@ -124,32 +120,28 @@ public class AreaManager {
 
     public List<BarEntry> getVaccinations() {
         vaccinationsList.clear();
-        for(VaccinationWeek ew: VaccinationList) {
-            if (ew.getValueValue() != null) {
-                String Vaccinations = ew.getValueValue();
-                String InfRegex = ew.getLabelValue().replaceAll("[a-zA-Z ]","");
-                if (Vaccinations.equals("..")) {
-                    Vaccinations = "0";
-                }
-                if (Vaccinations.equals("0")) {
+        for(VaccinationWeek vw: VaccinationList) {
+            if (vw.getValueValue() != null) {
+                String Vaccinations = vw.getValueValue();
+                String VacRegex = vw.getLabelValue().replaceAll("[a-zA-Z ]","");
+                if (Vaccinations.equals("..") || Vaccinations.equals("0")) {
                     continue;
                 }
-                if (!InfRegex.equals("")) {
-                    //Integer.parseInt(InfRegex)
+                if (!VacRegex.equals("")) {
                     SimpleDateFormat df = new SimpleDateFormat("yyyyww");
                     try {
-                        Date parsedDate = df.parse(InfRegex);
+                        Date parsedDate = df.parse(VacRegex);
                         timestamp = new Timestamp(parsedDate.getTime());
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     vaccinationsList.add(new BarEntry(
-                            (new Long(timestamp.getTime()).floatValue()-reference_timestamp),
+                            (new Long(timestamp.getTime()).floatValue()-reference_timestamp+1e8f),
                             Integer.parseInt(Vaccinations)));
                 }
             }
         }
-        return(infectionsList);
+        return(vaccinationsList);
     }
 
     public ArrayList<String> getLabels() {

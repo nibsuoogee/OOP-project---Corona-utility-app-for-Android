@@ -75,6 +75,7 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         //context = activity_search.this;
+        setTitle(getString(R.string.search));
         barChart = findViewById(R.id.chart1);
 
         textViewInfectionsVal = (TextView) findViewById(R.id.textViewInfectionsVal);
@@ -111,14 +112,19 @@ public class Search extends AppCompatActivity {
                     BarDataSet barDataSet1 = new BarDataSet(infectionList, getString(R.string.infections));
                     BarDataSet barDataSet2 = new BarDataSet(vaccinationsList, getString(R.string.vaccinations));
                     barDataSet1.setColor(Color.RED);
-                    barDataSet2.setColor(Color.BLUE);
+                    barDataSet1.setBarBorderWidth(1f);
+                    barDataSet1.setBarBorderColor(Color.RED);
+                    barDataSet2.setColor(Color.CYAN);
+                    barDataSet2.setBarBorderWidth(0.5f);
+                    barDataSet2.setBarBorderColor(Color.CYAN);
 
                     BarData data = new BarData();
-                    data.addDataSet(barDataSet1);
                     data.addDataSet(barDataSet2);
+                    data.addDataSet(barDataSet1);
 
-                    data.setBarWidth(1e8f);
+                    data.setBarWidth(4e8f);
                     data.setValueTextSize(10f);
+                    data.setDrawValues(false);
 
                     barChart.getDescription().setEnabled(false);
                     barChart.setMaxVisibleValueCount(700);
