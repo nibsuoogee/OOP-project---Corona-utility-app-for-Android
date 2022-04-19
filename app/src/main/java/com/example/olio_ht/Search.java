@@ -11,6 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.Checkable;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -67,6 +70,8 @@ public class Search extends AppCompatActivity {
     private TextView textViewArea;
     private Context context = null;
     private BarChart barChart;
+    private CheckBox checkbox;
+    DatabaseHelp DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +79,9 @@ public class Search extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         //context = activity_search.this;
         setTitle(getString(R.string.search));
+        DB = new DatabaseHelp(this);
         barChart = findViewById(R.id.chart1);
-
+        checkbox = (CheckBox) findViewById(R.id.checkBox);
         textViewInfectionsVal = (TextView) findViewById(R.id.textViewInfectionsVal);
         textViewVaccinationsVal = (TextView) findViewById(R.id.textViewVaccinationsVal);
         textViewArea = (TextView) findViewById(R.id.textViewArea);
@@ -140,7 +146,6 @@ public class Search extends AppCompatActivity {
             }
         });
 
-
         spinnerWeeks = (Spinner) findViewById(R.id.spinnerWeeks);
         adapter1 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, weekList);
@@ -171,6 +176,15 @@ public class Search extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    DB.changeArea(area);
+                }
             }
         });
 

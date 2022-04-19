@@ -20,7 +20,7 @@ public class DatabaseHelp extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase MyDB) {
-        MyDB.execSQL("create Table users(username TEXT primary key, password TEXT, iscurrentuser TEXT)");
+        MyDB.execSQL("create Table users(username TEXT primary key, password TEXT, iscurrentuser TEXT, area1 TEXT)");
     }
 
     @Override
@@ -28,12 +28,13 @@ public class DatabaseHelp extends SQLiteOpenHelper {
         MyDB.execSQL("drop Table if exists users");
     }
 
-    public Boolean insertData(String username, String password, String iscurrentuser) {
+    public Boolean insertData(String username, String password, String iscurrentuser, String area1) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("username", username);
         contentValues.put("password", password);
         contentValues.put("iscurrentuser", iscurrentuser);
+        contentValues.put("area1", area1);
         long result = MyDB.insert("users", null, contentValues);
         if (result == -1) {
             return false;
@@ -64,9 +65,9 @@ public class DatabaseHelp extends SQLiteOpenHelper {
 
     public void makeCurrent(String username, String password) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("iscurrentuser","false");
-        contentValues.clear();
+        //ContentValues contentValues = new ContentValues();
+        //contentValues.put("iscurrentuser","false");
+        //contentValues.clear();
         MyDB.execSQL("Update users set iscurrentuser='false' where iscurrentuser='true'", new String[] {});
         MyDB.execSQL("Update users set iscurrentuser='true' where username = ? and password = ?", new String[] {username, password});
         return;
@@ -80,4 +81,18 @@ public class DatabaseHelp extends SQLiteOpenHelper {
         return currentUsername;
     }
 
+    public void changeArea(String area) {
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("area1", area);
+        MyDB.update("users" , cv, "iscurrentuser = 'true'", new String[]{});
+    }
+
+    public String getArea() {
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("Select * from users where iscurrentuser='true' ", new String[] {});
+        cursor.moveToFirst();
+        @SuppressLint("Range") String area = cursor.getString(cursor.getColumnIndex("area1"));
+        return area;
+    }
 }
