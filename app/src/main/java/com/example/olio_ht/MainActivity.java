@@ -9,6 +9,8 @@ import android.os.StrictMode;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -16,12 +18,18 @@ import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView name;
+    DatabaseHelp DB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        name = (TextView) findViewById(R.id.textViewUserName);
+        DB = new DatabaseHelp(this);
+        name.setText(DB.getUsername());
 /*
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
