@@ -85,7 +85,7 @@ public class Search extends AppCompatActivity {
         textViewInfectionsVal = (TextView) findViewById(R.id.textViewInfectionsVal);
         textViewVaccinationsVal = (TextView) findViewById(R.id.textViewVaccinationsVal);
         textViewArea = (TextView) findViewById(R.id.textViewArea);
-        am = new AreaManager();
+        am = AreaManager.getInstance();
         weekList = new ArrayList<>();
         labelList = am.getLabels();
         Collections.reverse(labelList);

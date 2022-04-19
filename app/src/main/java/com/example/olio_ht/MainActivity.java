@@ -18,8 +18,16 @@ import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView name;
-    DatabaseHelp DB;
+    private TextView name;
+    private DatabaseHelp DB;
+    private AreaManager am;
+    private String area;
+    private String week;
+    private String infections;
+    private String vaccinations;
+    private TextView textViewInfectionsVal;
+    private TextView textViewVaccinationsVal;
+    private TextView textViewArea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +36,27 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         name = (TextView) findViewById(R.id.textViewUserName);
+        textViewInfectionsVal = (TextView) findViewById(R.id.textViewInfValMain1);
+        textViewVaccinationsVal = (TextView) findViewById(R.id.textViewVacValMain1);
+        textViewArea = (TextView) findViewById(R.id.textViewAreaMain1);
         DB = new DatabaseHelp(this);
         name.setText(DB.getUsername());
+        area = DB.getArea();
+        am = AreaManager.getInstance();
+        try {
+            am.readInfectionJSON(area);
+            am.readVaccinationJSON(area);
+        } catch (JSONException e) {
+
+        }
+        am.getWeeks();
+        week = am.getLatestWeek();
+        infections = am.getInfection(week);
+        vaccinations = am.getVaccination(week);
+        textViewArea.setText(area + ": " + week);
+        textViewInfectionsVal.setText(infections);
+        textViewVaccinationsVal.setText(vaccinations);
+
 /*
         View.OnClickListener listener = new View.OnClickListener() {
             @Override

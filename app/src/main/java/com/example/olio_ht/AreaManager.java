@@ -48,9 +48,19 @@ public class AreaManager {
     private List<BarEntry> vaccinationsList = new ArrayList<>();
     private ArrayList<String> labelList = new ArrayList<>();
     private ArrayList<String> weekList = new ArrayList<>();
+    private String latestWeek;
     private Timestamp timestamp;
 
-    public AreaManager() {
+    private static AreaManager am = null;
+
+    public static AreaManager getInstance() {
+        if (am == null) {
+            am = new AreaManager();
+        }
+        return am;
+    }
+
+    private AreaManager() {
         areaCodeListInf = new ArrayList<>();
         areaCodeListVac = new ArrayList<>();
         URL urlInfectionIds = null;
@@ -154,9 +164,14 @@ public class AreaManager {
         for(InfectionWeek ew: InfectionList) {
             if (ew.getValueValue() != null) {
                 weekList.add(ew.getLabelValue());
+                latestWeek = ew.getLabelValue();
             }
         }
         return(weekList);
+    }
+
+    public String getLatestWeek() {
+        return(latestWeek);
     }
 
     public void readInfectionJSON (String label) throws JSONException {
@@ -174,6 +189,7 @@ public class AreaManager {
         String json= getJSON(url);
         JSONObject jObject = null;
         try {
+
             jObject = new JSONObject(json);
         } catch (JSONException e) {
             e.printStackTrace();
