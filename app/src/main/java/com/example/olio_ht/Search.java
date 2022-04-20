@@ -71,6 +71,8 @@ public class Search extends AppCompatActivity {
     private Context context = null;
     private BarChart barChart;
     private CheckBox checkbox;
+    private CheckBox checkbox2;
+    private CheckBox checkbox3;
     DatabaseHelp DB;
 
     @Override
@@ -82,8 +84,10 @@ public class Search extends AppCompatActivity {
         DB = new DatabaseHelp(this);
         barChart = findViewById(R.id.chart1);
         checkbox = (CheckBox) findViewById(R.id.checkBox);
-        textViewInfectionsVal = (TextView) findViewById(R.id.textViewInfectionsVal);
-        textViewVaccinationsVal = (TextView) findViewById(R.id.textViewVaccinationsVal);
+        checkbox2 = (CheckBox) findViewById(R.id.checkBox2);
+        checkbox3 = (CheckBox) findViewById(R.id.checkBox3);
+        textViewInfectionsVal = (TextView) findViewById(R.id.textViewInfVal);
+        textViewVaccinationsVal = (TextView) findViewById(R.id.textViewVacVal);
         textViewArea = (TextView) findViewById(R.id.textViewArea);
         am = AreaManager.getInstance();
         weekList = new ArrayList<>();
@@ -183,7 +187,23 @@ public class Search extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    DB.changeArea(area);
+                    DB.changeArea(area, 1);
+                }
+            }
+        });
+        checkbox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    DB.changeArea(area, 2);
+                }
+            }
+        });
+        checkbox3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    DB.changeArea(area, 3);
                 }
             }
         });

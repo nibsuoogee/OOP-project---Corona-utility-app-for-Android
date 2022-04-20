@@ -7,9 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,13 +18,22 @@ public class MainActivity extends AppCompatActivity {
     private TextView name;
     private DatabaseHelp DB;
     private AreaManager am;
-    private String area;
+    private String areax;
     private String week;
     private String infections;
     private String vaccinations;
-    private TextView textViewInfectionsVal;
-    private TextView textViewVaccinationsVal;
-    private TextView textViewArea;
+    private TextView textViewInfectionsVal1;
+    private TextView textViewVaccinationsVal1;
+    private TextView textViewArea1;
+    private TextView textViewInfectionsVal2;
+    private TextView textViewVaccinationsVal2;
+    private TextView textViewArea2;
+    private TextView textViewInfectionsVal3;
+    private TextView textViewVaccinationsVal3;
+    private TextView textViewArea3;
+    private TextView textViewInfectionsVal = null;
+    private TextView textViewVaccinationsVal = null;
+    private TextView textViewArea = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,26 +42,48 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         name = (TextView) findViewById(R.id.textViewUserName);
-        textViewInfectionsVal = (TextView) findViewById(R.id.textViewInfValMain1);
-        textViewVaccinationsVal = (TextView) findViewById(R.id.textViewVacValMain1);
-        textViewArea = (TextView) findViewById(R.id.textViewAreaMain1);
+        textViewInfectionsVal1 = (TextView) findViewById(R.id.textViewInfVal);
+        textViewVaccinationsVal1 = (TextView) findViewById(R.id.textViewVacVal);
+        textViewArea1 = (TextView) findViewById(R.id.textViewArea);
+        textViewInfectionsVal2 = (TextView) findViewById(R.id.textViewInfValMain2);
+        textViewVaccinationsVal2 = (TextView) findViewById(R.id.textViewVacValMain2);
+        textViewArea2 = (TextView) findViewById(R.id.textViewAreaMain2);
+        textViewInfectionsVal3 = (TextView) findViewById(R.id.textViewInfValMain3);
+        textViewVaccinationsVal3 = (TextView) findViewById(R.id.textViewVacValMain3);
+        textViewArea3 = (TextView) findViewById(R.id.textViewAreaMain3);
         DB = new DatabaseHelp(this);
         name.setText(DB.getUsername());
-        area = DB.getArea();
         am = AreaManager.getInstance();
-        try {
-            am.readInfectionJSON(area);
-            am.readVaccinationJSON(area);
-        } catch (JSONException e) {
+        for (int i=1; i<4; i++) {
+            areax = DB.getArea(i);
+            try {
+                am.readInfectionJSON(areax);
+                am.readVaccinationJSON(areax);
+            } catch (JSONException e) {
 
+            }
+            am.getWeeks();
+            week = am.getLatestWeek();
+            infections = am.getInfection(week);
+            vaccinations = am.getVaccination(week);
+            if (i == 1) {
+                textViewArea = textViewArea1;
+                textViewInfectionsVal = textViewInfectionsVal1;
+                textViewVaccinationsVal = textViewVaccinationsVal1;
+            } else if (i == 2) {
+                textViewArea = textViewArea2;
+                textViewInfectionsVal = textViewInfectionsVal2;
+                textViewVaccinationsVal = textViewVaccinationsVal2;
+            } else if (i == 3) {
+                textViewArea = textViewArea3;
+                textViewInfectionsVal = textViewInfectionsVal3;
+                textViewVaccinationsVal = textViewVaccinationsVal3;
+            }
+            textViewArea.setText(areax + ": " + week);
+            textViewInfectionsVal.setText(infections);
+            textViewVaccinationsVal.setText(vaccinations);
         }
-        am.getWeeks();
-        week = am.getLatestWeek();
-        infections = am.getInfection(week);
-        vaccinations = am.getVaccination(week);
-        textViewArea.setText(area + ": " + week);
-        textViewInfectionsVal.setText(infections);
-        textViewVaccinationsVal.setText(vaccinations);
+
 
 /*
         View.OnClickListener listener = new View.OnClickListener() {

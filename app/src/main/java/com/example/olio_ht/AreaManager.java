@@ -164,7 +164,9 @@ public class AreaManager {
         for(InfectionWeek ew: InfectionList) {
             if (ew.getValueValue() != null) {
                 weekList.add(ew.getLabelValue());
-                latestWeek = ew.getLabelValue();
+                if (!ew.getLabelValue().equals("Kaikki ajat")) {
+                    latestWeek = ew.getLabelValue();
+                }
             }
         }
         return(weekList);

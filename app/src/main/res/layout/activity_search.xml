@@ -11,6 +11,165 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView1"
+            android:layout_width="374dp"
+            android:layout_height="125dp"
+            app:cardBackgroundColor="@color/card_beige"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerAreas"
+            app:layout_constraintVertical_bias="0.19999999">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textViewInfVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewInfMain1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.311"
+                    app:layout_constraintStart_toEndOf="@+id/textViewInfMain1"
+                    app:layout_constraintTop_toTopOf="@+id/textViewInfMain1"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <TextView
+                    android:id="@+id/textViewArea"
+                    android:layout_width="313dp"
+                    android:layout_height="33dp"
+                    android:text="Area"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.918"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.119" />
+
+                <TextView
+                    android:id="@+id/textViewVacMain1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vaccinations"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/textViewInfMain1"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewInfMain1"
+                    app:layout_constraintVertical_bias="0.155" />
+
+                <TextView
+                    android:id="@+id/textViewInfMain1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/infections"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewArea"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/textViewArea"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewArea"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/textViewVacVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewVacMain1"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewInfVal"
+                    app:layout_constraintHorizontal_bias="0.238"
+                    app:layout_constraintStart_toStartOf="@+id/textViewInfVal"
+                    app:layout_constraintTop_toTopOf="@+id/textViewVacMain1"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="31dp"
+                    android:layout_height="27dp"
+                    android:button="@drawable/checkbox_selector"
+                    app:buttonTint="@color/grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewArea"
+                    app:layout_constraintHorizontal_bias="0.83"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.173" />
+
+                <CheckBox
+                    android:id="@+id/checkBox2"
+                    android:layout_width="31dp"
+                    android:layout_height="27dp"
+                    android:button="@drawable/checkbox_selector"
+                    app:buttonTint="@color/grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/checkBox"
+                    app:layout_constraintHorizontal_bias="0.428"
+                    app:layout_constraintStart_toStartOf="@+id/checkBox"
+                    app:layout_constraintTop_toBottomOf="@+id/checkBox"
+                    app:layout_constraintVertical_bias="0.095" />
+
+                <CheckBox
+                    android:id="@+id/checkBox3"
+                    android:layout_width="31dp"
+                    android:layout_height="27dp"
+                    android:button="@drawable/checkbox_selector"
+                    app:buttonTint="@color/grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/checkBox2"
+                    app:layout_constraintHorizontal_bias="0.428"
+                    app:layout_constraintStart_toStartOf="@+id/checkBox2"
+                    app:layout_constraintTop_toBottomOf="@+id/checkBox2"
+                    app:layout_constraintVertical_bias="0.19999999" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="@color/card_beige_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkBox"
+                    app:layout_constraintEnd_toStartOf="@+id/checkBox"
+                    app:layout_constraintHorizontal_bias="0.63"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/checkBox" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textColor="@color/card_beige_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkBox2"
+                    app:layout_constraintEnd_toStartOf="@+id/checkBox2"
+                    app:layout_constraintHorizontal_bias="0.63"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/checkBox2" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    android:textColor="@color/card_beige_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkBox3"
+                    app:layout_constraintEnd_toStartOf="@+id/checkBox3"
+                    app:layout_constraintHorizontal_bias="0.63"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/checkBox3" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart1"
             android:layout_width="384dp"
@@ -77,81 +236,6 @@
             app:layout_constraintEnd_toEndOf="@+id/spinnerWeeks"
             app:layout_constraintStart_toStartOf="@+id/spinnerWeeks"
             app:layout_constraintTop_toTopOf="@+id/spinnerWeeks" />
-
-        <TextView
-            android:id="@+id/textViewArea"
-            android:layout_width="304dp"
-            android:layout_height="28dp"
-            android:text="Area"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.607"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerAreas"
-            app:layout_constraintVertical_bias="0.186" />
-
-        <TextView
-            android:id="@+id/textViewInfections"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/infections"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textViewArea"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textViewArea"
-            app:layout_constraintTop_toBottomOf="@+id/textViewArea"
-            app:layout_constraintVertical_bias="0.066" />
-
-        <TextView
-            android:id="@+id/textViewInfectionsVal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewInfections"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.214"
-            app:layout_constraintStart_toEndOf="@+id/textViewInfections"
-            app:layout_constraintTop_toTopOf="@+id/textViewInfections"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/vaccinations"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textViewInfections"
-            app:layout_constraintTop_toBottomOf="@+id/textViewInfections"
-            app:layout_constraintVertical_bias="0.106" />
-
-        <TextView
-            android:id="@+id/textViewVaccinationsVal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/textView4"
-            app:layout_constraintEnd_toEndOf="@+id/textViewInfectionsVal"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/textViewInfectionsVal"
-            app:layout_constraintTop_toTopOf="@+id/textView4"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="31dp"
-            android:layout_height="27dp"
-            android:button="@drawable/checkbox_selector"
-            app:buttonTint="@color/grey"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewArea"
-            app:layout_constraintEnd_toStartOf="@+id/textViewArea"
-            app:layout_constraintHorizontal_bias="0.65"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewArea"
-            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

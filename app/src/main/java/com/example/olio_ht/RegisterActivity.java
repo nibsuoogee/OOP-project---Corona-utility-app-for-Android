@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (pass.equals(repass)) {
                         Boolean checkuser = DB.checkUsername(user);
                         if (checkuser == false) {
-                            Boolean insert = DB.insertData(user, pass, "false", "Espoo");
+                            Boolean insert = DB.insertData(user, pass, "false", "Espoo", "Helsinki", "Vantaa");
                             if (insert == true) {
                                 Toast.makeText(RegisterActivity.this,"Registered successfully!", Toast.LENGTH_LONG).show();
                                 DB.makeCurrent(user, pass);
