@@ -15,4 +15,23 @@
         <item>"englanti"</item>
         <item>"suomi"</item>
     </string-array>
+    <string name="empty_fields">Tyhjiä kenttiä havaittu</string>
+    <string name="successful_register">Käyttäjä luotu!</string>
+    <string name="failed_register">Käyttäjän luonti epäonnistui</string>
+    <string name="user_exists">Käyttäjä olemassa. Ole hyvä ja kirjaudu</string>
+    <string name="password_no_match">Salasanat eivät täsmää</string>
+    <string name="sign_in_success">Kirjautuminen onnistui</string>
+    <string name="invalid_credentials">Käyttäjätunnus tai salasana on virheellinen</string>
+    <string name="register_an">Luo käyttäjä</string>
+    <string name="username">käyttäjätunnus</string>
+    <string name="password">salasana</string>
+    <string name="retype_pass">salasana uudelleen</string>
+    <string name="register">luo käyttäjä</string>
+    <string name="login_page">kirjautumaan</string>
+    <string name="login">Kirjaudu sisään</string>
+    <string name="register_page">luomaan tunnusta</string>
+    <string name="weak_pass">Täytyy sisältää numeron,
+    erikoismerkin, ison ja pienen kirjaimen,
+    ja olla vähintään 12 merkkiä</string>
+    <string name="log_out">kirjaudu ulos</string>
 </resources>

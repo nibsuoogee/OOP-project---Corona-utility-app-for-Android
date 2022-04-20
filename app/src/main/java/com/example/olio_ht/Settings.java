@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,15 +25,17 @@ import java.util.Locale;
 
 public class Settings extends AppCompatActivity {
 
-    Context context = null;
-    View view;
+    private Context context = null;
+    private View view;
     private Spinner spinner;
+    private Button logoutbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         context = Settings.this;
+        logoutbutton = (Button) findViewById(R.id.buttonLogout);
 
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
@@ -71,19 +74,27 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (adapterView.getItemAtPosition(i).toString().equals("suomi")) {
-                    System.out.println("%%%%%%%%%%%%%%%%");
                     setLocale("fi");
-                    //settingsArray.set(5,1);
+                    Intent intent = new Intent(getApplicationContext(), Settings.class);
+                    startActivity(intent);
                 } else if (adapterView.getItemAtPosition(i).toString().equals("englanti")) {
-                    System.out.println("!!!!!!!!!!!!!!!!!!");
                     setLocale("en");
-                    //settingsArray.set(5,0);
+                    Intent intent = new Intent(getApplicationContext(), Settings.class);
+                    startActivity(intent);
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+
+        logoutbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -1,5 +1,7 @@
 package com.example.olio_ht;
 
+import static com.example.olio_ht.HashFunction.getHash;
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
@@ -20,7 +22,7 @@ public class DatabaseHelp extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase MyDB) {
-        MyDB.execSQL("create Table users(username TEXT primary key, password TEXT, iscurrentuser TEXT, area1 TEXT, area2 TEXT, area3 TEXT)");
+        MyDB.execSQL("create Table users(username TEXT primary key, password TEXT, iscurrentuser TEXT, area1 TEXT, area2 TEXT, area3 TEXT, salt TEXT)");
     }
 
     @Override
@@ -28,7 +30,7 @@ public class DatabaseHelp extends SQLiteOpenHelper {
         MyDB.execSQL("drop Table if exists users");
     }
 
-    public Boolean insertData(String username, String password, String iscurrentuser, String area1, String area2, String area3) {
+    public Boolean insertData(String username, String password, String iscurrentuser, String area1, String area2, String area3, String salt) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("username", username);
@@ -37,6 +39,7 @@ public class DatabaseHelp extends SQLiteOpenHelper {
         contentValues.put("area1", area1);
         contentValues.put("area2", area2);
         contentValues.put("area3", area3);
+        contentValues.put("salt", salt);
         long result = MyDB.insert("users", null, contentValues);
         if (result == -1) {
             return false;
@@ -105,5 +108,13 @@ public class DatabaseHelp extends SQLiteOpenHelper {
         }
         @SuppressLint("Range") String area = cursor.getString(cursor.getColumnIndex(areax));
         return area;
+    }
+
+    public String getSalt(String username) {
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("Select * from users where username = ?", new String[] {username});
+        cursor.moveToFirst();
+        @SuppressLint("Range") String salt = cursor.getString(cursor.getColumnIndex("salt"));
+        return salt;
     }
 }

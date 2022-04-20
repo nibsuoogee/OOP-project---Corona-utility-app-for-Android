@@ -73,7 +73,7 @@ public class Search extends AppCompatActivity {
     private CheckBox checkbox;
     private CheckBox checkbox2;
     private CheckBox checkbox3;
-    DatabaseHelp DB;
+    private DatabaseHelp DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

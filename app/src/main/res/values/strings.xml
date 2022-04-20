@@ -15,4 +15,24 @@
         <item>"englanti"</item>
         <item>"suomi"</item>
     </string-array>
+    <string name="empty_fields">Empty fields detected</string>
+    <string name="successful_register">Registered successfully!</string>
+    <string name="failed_register">Registration failed</string>
+    <string name="user_exists">User already exists. Please login</string>
+    <string name="password_no_match">Passwords do not match</string>
+    <string name="sign_in_success">Sign in successful</string>
+    <string name="invalid_credentials">Invalid credentials</string>
+    <string name="register_an">Register an account</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="retype_pass">retype password</string>
+    <string name="register">register</string>
+    <string name="login_page">login page</string>
+    <string name="login">Login</string>
+    <string name="register_page">register page</string>
+    <string name="weak_pass">Must contain a number,
+        special character,
+        a small and large letter,
+        and be at least 12 characters long</string>
+    <string name="log_out">Log out</string>
 </resources>
