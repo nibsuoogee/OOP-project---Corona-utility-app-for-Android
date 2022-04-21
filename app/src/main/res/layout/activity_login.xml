@@ -13,12 +13,12 @@
         android:layout_marginTop="148dp"
         android:text="@string/login"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextUsername"
+        app:layout_constraintBottom_toTopOf="@+id/editTextUsername1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.395"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.907" />
+        app:layout_constraintVertical_bias="0.342" />
 
     <EditText
         android:id="@+id/editTextUsername1"
@@ -82,4 +82,18 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonToRegister"
         app:layout_constraintVertical_bias="0.059"
         app:srcCompat="@drawable/ic_baseline_create_24" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/purple_200"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.794" />
 </androidx.constraintlayout.widget.ConstraintLayout>

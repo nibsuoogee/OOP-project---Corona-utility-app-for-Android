@@ -79,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
                 textViewInfectionsVal = textViewInfectionsVal3;
                 textViewVaccinationsVal = textViewVaccinationsVal3;
             }
+            week = week.replace("Vuosi ", "");
+            week = week.replace("Viikko", getString(R.string.week));
+            week = week.replace("Kaikki ajat",getString(R.string.all_time));
             textViewArea.setText(areax + ": " + week);
             textViewInfectionsVal.setText(infections);
             textViewVaccinationsVal.setText(vaccinations);

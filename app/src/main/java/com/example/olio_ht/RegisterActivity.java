@@ -1,10 +1,12 @@
 package com.example.olio_ht;
 
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 import static com.example.olio_ht.HashFunction.createSalt;
 import static com.example.olio_ht.HashFunction.getHash;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -33,9 +36,11 @@ public class RegisterActivity extends AppCompatActivity {
     private DatabaseHelp DB;
     private Context context = null;
     private Spinner spinner;
+    private ProgressBar progressbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         context = RegisterActivity.this;
@@ -44,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         repassword = (EditText) findViewById(R.id.editTextRePassword);
         register = (Button) findViewById(R.id.buttonRegister);
         signin = (Button) findViewById(R.id.buttonToLogin);
+        progressbar = (ProgressBar) findViewById(R.id.progressBar2);
         DB = new DatabaseHelp(this);
         Spinner spinner = findViewById(R.id.spinner2);
 
@@ -64,11 +70,10 @@ public class RegisterActivity extends AppCompatActivity {
                         if (checkuser == false) {
                             //if (PASSWORD_PATTERN.matcher(pass).matches()) {
                                 salt = createSalt();
-                                System.out.println("salt reg: "+salt);
                                 pass = getHash(pass, salt);
-                                System.out.println("pass reg: "+pass);
                                 Boolean insert = DB.insertData(user, pass, "false", "Espoo", "Helsinki", "Vantaa", salt);
                                 if (insert == true) {
+                                    progressbar.setVisibility(View.VISIBLE);
                                     Toast.makeText(RegisterActivity.this,getString(R.string.successful_register), Toast.LENGTH_LONG).show();
                                     DB.makeCurrent(user, pass);
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);

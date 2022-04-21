@@ -1,8 +1,12 @@
 package com.example.olio_ht;
 
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +21,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -29,13 +35,16 @@ public class Settings extends AppCompatActivity {
     private View view;
     private Spinner spinner;
     private Button logoutbutton;
+    private Switch switchDarkMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         context = Settings.this;
         logoutbutton = (Button) findViewById(R.id.buttonLogout);
+        switchDarkMode = (Switch) findViewById(R.id.switch1);
 
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
@@ -95,6 +104,17 @@ public class Settings extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        switchDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b) {
+                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO);
+                    Intent intent = new Intent(getApplicationContext(), Settings.class);
+                    startActivity(intent);
+                }
             }
         });
     }

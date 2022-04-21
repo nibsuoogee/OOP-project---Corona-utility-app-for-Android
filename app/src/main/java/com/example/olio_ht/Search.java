@@ -161,7 +161,10 @@ public class Search extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 week = adapterView.getItemAtPosition(i).toString();
                 infections = am.getInfection(week);
-                textViewArea.setText(area + ": " + week);
+                String displayedweek = week.replace("Vuosi ", "");
+                displayedweek = displayedweek.replace("Viikko", getString(R.string.week));
+                displayedweek = displayedweek.replace("Kaikki ajat",getString(R.string.all_time));
+                textViewArea.setText(area + ": " + displayedweek);
                 if (infections.equals("..")) {
                     textViewInfectionsVal.setText(getString(R.string.no_data));
                 } else {
