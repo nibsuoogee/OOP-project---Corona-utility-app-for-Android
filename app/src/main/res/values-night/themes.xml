@@ -15,5 +15,6 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">?attr/colorOnPrimary</item>
         <item name="android:textColor">@color/text_night</item>
+        <item name="android:fontFamily">@font/kanit</item>
     </style>
 </resources>

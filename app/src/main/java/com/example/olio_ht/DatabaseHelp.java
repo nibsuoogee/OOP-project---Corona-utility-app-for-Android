@@ -11,6 +11,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.sql.Connection;
+
 public class DatabaseHelp extends SQLiteOpenHelper {
 
     public static final String DBNAME = "Login.db";
@@ -19,15 +21,16 @@ public class DatabaseHelp extends SQLiteOpenHelper {
         super(context, "Login.db", null, 1);
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase MyDB) {
         MyDB.execSQL("create Table users(username TEXT primary key, password TEXT, iscurrentuser TEXT, area1 TEXT, area2 TEXT, area3 TEXT, salt TEXT)");
+        MyDB.close();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase MyDB, int i, int i1) {
         MyDB.execSQL("drop Table if exists users");
+        MyDB.close();
     }
 
     public Boolean insertData(String username, String password, String iscurrentuser, String area1, String area2, String area3, String salt) {
@@ -41,6 +44,7 @@ public class DatabaseHelp extends SQLiteOpenHelper {
         contentValues.put("area3", area3);
         contentValues.put("salt", salt);
         long result = MyDB.insert("users", null, contentValues);
+        MyDB.close();
         if (result == -1) {
             return false;
         } else {
@@ -52,18 +56,27 @@ public class DatabaseHelp extends SQLiteOpenHelper {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("Select * from users where username = ?", new String[] {username});
         if (cursor.getCount()>0) {
+            cursor.close();
+            MyDB.close();
             return true;
         } else {
+            cursor.close();
+            MyDB.close();
             return false;
         }
+
     }
 
     public Boolean checkUsernamePassword(String username, String password) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("Select * from users where username = ? and password = ?", new String[] {username,password});
         if (cursor.getCount()>0) {
+            cursor.close();
+            MyDB.close();
             return true;
         } else {
+            cursor.close();
+            MyDB.close();
             return false;
         }
     }
@@ -72,6 +85,7 @@ public class DatabaseHelp extends SQLiteOpenHelper {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         MyDB.execSQL("Update users set iscurrentuser='false' where iscurrentuser='true'", new String[] {});
         MyDB.execSQL("Update users set iscurrentuser='true' where username = ? and password = ?", new String[] {username, password});
+        MyDB.close();
         return;
     }
 
@@ -80,6 +94,8 @@ public class DatabaseHelp extends SQLiteOpenHelper {
         Cursor cursor = MyDB.rawQuery("Select * from users where iscurrentuser='true' ", new String[] {});
         cursor.moveToFirst();
         @SuppressLint("Range") String currentUsername = cursor.getString(cursor.getColumnIndex("username"));
+        cursor.close();
+        MyDB.close();
         return currentUsername;
     }
 
@@ -94,6 +110,7 @@ public class DatabaseHelp extends SQLiteOpenHelper {
             cv.put("area3", area);
         }
         MyDB.update("users" , cv, "iscurrentuser = 'true'", new String[]{});
+        MyDB.close();
     }
 
     public String getArea(int i) {
@@ -107,6 +124,8 @@ public class DatabaseHelp extends SQLiteOpenHelper {
             areax = "area3";
         }
         @SuppressLint("Range") String area = cursor.getString(cursor.getColumnIndex(areax));
+        cursor.close();
+        MyDB.close();
         return area;
     }
 
@@ -115,6 +134,8 @@ public class DatabaseHelp extends SQLiteOpenHelper {
         Cursor cursor = MyDB.rawQuery("Select * from users where username = ?", new String[] {username});
         cursor.moveToFirst();
         @SuppressLint("Range") String salt = cursor.getString(cursor.getColumnIndex("salt"));
+        cursor.close();
+        MyDB.close();
         return salt;
     }
 }

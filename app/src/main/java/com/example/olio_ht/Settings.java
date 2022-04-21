@@ -39,7 +39,6 @@ public class Settings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         context = Settings.this;
@@ -114,9 +113,12 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);
+                    //AppCompatDelegate.setLocalNightMode(MODE_NIGHT_NO);
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     //Intent intent = new Intent(getApplicationContext(), Settings.class);
                     //startActivity(intent);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
             }
         });
