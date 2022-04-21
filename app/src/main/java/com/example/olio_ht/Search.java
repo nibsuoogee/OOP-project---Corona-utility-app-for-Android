@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -79,8 +80,7 @@ public class Search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        //context = activity_search.this;
-        setTitle(getString(R.string.search));
+        context = Search.this;
         DB = new DatabaseHelp(this);
         barChart = findViewById(R.id.chart1);
         checkbox = (CheckBox) findViewById(R.id.checkBox);
@@ -119,10 +119,10 @@ public class Search extends AppCompatActivity {
 
                     BarDataSet barDataSet1 = new BarDataSet(infectionList, getString(R.string.infections));
                     BarDataSet barDataSet2 = new BarDataSet(vaccinationsList, getString(R.string.vaccinations));
-                    barDataSet1.setColor(Color.RED);
+                    barDataSet1.setColor(getResources().getColor(R.color.infections));
                     barDataSet1.setBarBorderWidth(1f);
                     barDataSet1.setBarBorderColor(Color.RED);
-                    barDataSet2.setColor(Color.CYAN);
+                    barDataSet2.setColor(getResources().getColor(R.color.vaccinations));
                     barDataSet2.setBarBorderWidth(0.5f);
                     barDataSet2.setBarBorderColor(Color.CYAN);
 
@@ -134,6 +134,14 @@ public class Search extends AppCompatActivity {
                     data.setValueTextSize(10f);
                     data.setDrawValues(false);
 
+                    barChart.getAxisLeft().setTextSize(13f);
+                    barChart.getAxisRight().setTextSize(13f);
+                    barChart.getXAxis().setTextSize(11f);
+                    barChart.getLegend().setTextSize(13f);
+                    barChart.getAxisLeft().setTextColor(getThemeTextColor(context));
+                    barChart.getAxisRight().setTextColor(getThemeTextColor(context));
+                    barChart.getXAxis().setTextColor(getThemeTextColor(context));
+                    barChart.getLegend().setTextColor(getThemeTextColor(context));
                     barChart.getDescription().setEnabled(false);
                     barChart.setMaxVisibleValueCount(700);
                     barChart.setData(data);
@@ -238,5 +246,11 @@ public class Search extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    public static int getThemeTextColor (final Context context) {
+        final TypedValue value = new TypedValue ();
+        context.getTheme ().resolveAttribute (com.google.android.material.R.attr.colorSecondaryVariant, value, true);
+        return value.data;
     }
 }

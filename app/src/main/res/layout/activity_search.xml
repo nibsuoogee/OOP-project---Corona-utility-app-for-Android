@@ -11,16 +11,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <SurfaceView
+            android:id="@+id/surfaceView3"
+            android:layout_width="402dp"
+            android:layout_height="306dp"
+            android:background="?colorSecondaryContainer"
+            android:translationZ="-5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/chart1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView1"
             android:layout_width="374dp"
             android:layout_height="125dp"
-            app:cardBackgroundColor="@color/card_beige"
+            app:cardBackgroundColor="?colorPrimaryVariant"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinnerAreas"
-            app:layout_constraintVertical_bias="0.19999999">
+            app:layout_constraintVertical_bias="0.16000003">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -31,33 +43,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
+                    android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textViewInfMain1"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.311"
+                    app:layout_constraintHorizontal_bias="0.49"
                     app:layout_constraintStart_toEndOf="@+id/textViewInfMain1"
                     app:layout_constraintTop_toTopOf="@+id/textViewInfMain1"
                     app:layout_constraintVertical_bias="1.0" />
 
                 <TextView
                     android:id="@+id/textViewArea"
-                    android:layout_width="313dp"
-                    android:layout_height="33dp"
+                    android:layout_width="306dp"
+                    android:layout_height="27dp"
                     android:text="Area"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.918"
+                    app:layout_constraintHorizontal_bias="0.838"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.119" />
+                    app:layout_constraintVertical_bias="0.132" />
 
                 <TextView
                     android:id="@+id/textViewVacMain1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/vaccinations"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -71,19 +84,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@string/infections"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/textViewArea"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.035"
                     app:layout_constraintStart_toStartOf="@+id/textViewArea"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewArea"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.363" />
 
                 <TextView
                     android:id="@+id/textViewVacVal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
+                    android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textViewVacMain1"
                     app:layout_constraintEnd_toEndOf="@+id/textViewInfVal"
                     app:layout_constraintHorizontal_bias="0.238"
@@ -96,7 +110,7 @@
                     android:layout_width="31dp"
                     android:layout_height="27dp"
                     android:button="@drawable/checkbox_selector"
-                    app:buttonTint="@color/grey"
+                    app:buttonTint="@color/accent_light"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/textViewArea"
                     app:layout_constraintHorizontal_bias="0.83"
@@ -109,7 +123,7 @@
                     android:layout_width="31dp"
                     android:layout_height="27dp"
                     android:button="@drawable/checkbox_selector"
-                    app:buttonTint="@color/grey"
+                    app:buttonTint="@color/accent_light"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/checkBox"
                     app:layout_constraintHorizontal_bias="0.428"
@@ -122,7 +136,7 @@
                     android:layout_width="31dp"
                     android:layout_height="27dp"
                     android:button="@drawable/checkbox_selector"
-                    app:buttonTint="@color/grey"
+                    app:buttonTint="@color/accent_light"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/checkBox2"
                     app:layout_constraintHorizontal_bias="0.428"
@@ -135,7 +149,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1"
-                    android:textColor="@color/card_beige_text"
                     app:layout_constraintBottom_toBottomOf="@+id/checkBox"
                     app:layout_constraintEnd_toStartOf="@+id/checkBox"
                     app:layout_constraintHorizontal_bias="0.63"
@@ -147,7 +160,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2"
-                    android:textColor="@color/card_beige_text"
                     app:layout_constraintBottom_toBottomOf="@+id/checkBox2"
                     app:layout_constraintEnd_toStartOf="@+id/checkBox2"
                     app:layout_constraintHorizontal_bias="0.63"
@@ -159,7 +171,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3"
-                    android:textColor="@color/card_beige_text"
                     app:layout_constraintBottom_toBottomOf="@+id/checkBox3"
                     app:layout_constraintEnd_toStartOf="@+id/checkBox3"
                     app:layout_constraintHorizontal_bias="0.63"
@@ -172,13 +183,15 @@
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart1"
-            android:layout_width="384dp"
-            android:layout_height="286dp"
+            android:layout_width="387dp"
+            android:layout_height="295dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.138" />
+            app:layout_constraintVertical_bias="0.138">
+
+        </com.github.mikephil.charting.charts.BarChart>
 
         <Spinner
             android:id="@+id/spinnerAreas"
@@ -189,13 +202,13 @@
             app:layout_constraintHorizontal_bias="0.091"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.601" />
+            app:layout_constraintVertical_bias="0.62" />
 
         <SurfaceView
             android:id="@+id/surfaceView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/purple_500"
+            android:background="?colorSecondary"
             android:translationZ="-5dp"
             app:layout_constraintBottom_toBottomOf="@+id/spinnerAreas"
             app:layout_constraintEnd_toEndOf="@+id/spinnerAreas"
@@ -216,21 +229,11 @@
             app:layout_constraintTop_toTopOf="@+id/spinnerAreas"
             app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/week"
-            app:layout_constraintBottom_toTopOf="@+id/spinnerWeeks"
-            app:layout_constraintEnd_toEndOf="@+id/spinnerWeeks"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/spinnerWeeks" />
-
         <SurfaceView
             android:id="@+id/surfaceView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/grey"
+            android:background="?colorSecondary"
             android:translationZ="-5dp"
             app:layout_constraintBottom_toBottomOf="@+id/spinnerWeeks"
             app:layout_constraintEnd_toEndOf="@+id/spinnerWeeks"
@@ -244,7 +247,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/grey"
+        app:itemBackground="?colorPrimaryVariant"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />

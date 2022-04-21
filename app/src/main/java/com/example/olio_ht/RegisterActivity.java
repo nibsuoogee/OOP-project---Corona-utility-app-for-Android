@@ -1,6 +1,7 @@
 package com.example.olio_ht;
 
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
 import static com.example.olio_ht.HashFunction.createSalt;
 import static com.example.olio_ht.HashFunction.getHash;
 
@@ -40,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);
+        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         context = RegisterActivity.this;

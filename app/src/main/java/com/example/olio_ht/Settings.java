@@ -107,13 +107,16 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+        /*if (AppCompatDelegate.getDefaultNightMode() == MODE_NIGHT_YES) {
+            switchDarkMode.setChecked(true);
+        }*/
         switchDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (!b) {
-                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO);
-                    Intent intent = new Intent(getApplicationContext(), Settings.class);
-                    startActivity(intent);
+                if (b) {
+                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);
+                    //Intent intent = new Intent(getApplicationContext(), Settings.class);
+                    //startActivity(intent);
                 }
             }
         });

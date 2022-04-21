@@ -1,19 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Olio_HT" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Olio_HT" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">#BF9BD8</item>
+        <item name="colorPrimary">@color/bars_night</item>
+        <item name="colorPrimaryVariant">@color/bars_night</item>
+        <item name="colorOnPrimary">@color/background_night</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">#322042</item>
+        <item name="colorSecondary">@color/boxes_night</item>
+        <item name="colorSecondaryVariant">@color/text_night</item>
+        <item name="colorOnSecondary">@color/accent_night</item>
+        <item name="colorSecondaryContainer">@color/chart_background_night</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="android:background">#322042</item>
-        <item name="android:windowBackground">#E926E6</item>
-        <item name="android:colorBackground">#5BDDB7</item>
+        <item name="android:windowBackground">?attr/colorOnPrimary</item>
+        <item name="android:textColor">@color/text_night</item>
     </style>
 </resources>
