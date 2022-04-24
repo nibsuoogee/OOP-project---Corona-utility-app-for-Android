@@ -35,7 +35,7 @@ public class Settings extends AppCompatActivity {
     private View view;
     private Spinner spinner;
     private Button logoutbutton;
-    private Switch switchDarkMode;
+    private Button buttonDM, buttonDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,8 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         context = Settings.this;
         logoutbutton = (Button) findViewById(R.id.buttonLogout);
-        switchDarkMode = (Switch) findViewById(R.id.switch1);
+        buttonDM = (Button) findViewById(R.id.buttonDM);
+        buttonDay = (Button) findViewById(R.id.buttonDay);
 
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
@@ -106,20 +107,19 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        /*if (AppCompatDelegate.getDefaultNightMode() == MODE_NIGHT_YES) {
-            switchDarkMode.setChecked(true);
-        }*/
-        switchDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        buttonDM.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    //AppCompatDelegate.setLocalNightMode(MODE_NIGHT_NO);
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    //Intent intent = new Intent(getApplicationContext(), Settings.class);
-                    //startActivity(intent);
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }
+            public void onClick(View view) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                recreate();
+            }
+        });
+
+        buttonDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                recreate();
             }
         });
     }

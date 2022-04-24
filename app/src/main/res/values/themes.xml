@@ -1,10 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Olio_HT" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="Theme.Olio_HT" parent="Theme.AppCompat.DayNight">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/bars_light</item>
         <item name="colorPrimaryVariant">@color/bars_light</item>
         <item name="colorOnPrimary">@color/background_light</item>
+        <item name="colorPrimaryContainer">@color/inbars_light</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/boxes_light</item>
         <item name="colorSecondaryVariant">@color/text_light</item>

@@ -56,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
         am = AreaManager.getInstance();
         for (int i=1; i<4; i++) {
             areax = DB.getArea(i);
+            if (areax == null) {
+                System.out.println("AreaxNULL");
+                continue;
+            }
+            System.out.println("Areax:___" +areax);
             try {
                 am.readInfectionJSON(areax);
                 am.readVaccinationJSON(areax);
@@ -87,36 +92,6 @@ public class MainActivity extends AppCompatActivity {
             textViewVaccinationsVal.setText(vaccinations);
         }
 
-
-/*
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick (View view) {
-                try {
-                    am.readJSON();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        Button btn1 = findViewById(R.id.buttonRead);
-        btn1.setOnClickListener(listener);
-
-        View.OnClickListener listener2 = new View.OnClickListener() {
-            @Override
-            public void onClick (View view) {
-                try {
-                    am.readJSONid();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        Button btn2 = findViewById(R.id.buttonRead2);
-        btn2.setOnClickListener(listener2);
-*/
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
 

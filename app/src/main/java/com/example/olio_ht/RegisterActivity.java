@@ -53,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         DB = new DatabaseHelp(this);
         Spinner spinner = findViewById(R.id.spinner2);
 
+        //context.deleteDatabase("Login.db");
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +62,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String repass = repassword.getText().toString();
                 String salt;
 
-                //context.deleteDatabase("Login.db");
                 if (user.equals("")||pass.equals("")||repass.equals("")) {
                     Toast.makeText(RegisterActivity.this,getString(R.string.empty_fields), Toast.LENGTH_LONG).show();
                 } else {

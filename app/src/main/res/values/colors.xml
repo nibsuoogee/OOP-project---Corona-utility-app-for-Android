@@ -2,6 +2,7 @@
 <resources>
     <color name="background_night">#322042</color>
     <color name="bars_night">#503C70</color>
+    <color name="inbars_night">#2E2E2E</color>
     <color name="status_night">#491E8F</color>
     <color name="boxes_night">#635B73</color>
     <color name="text_night">#CEFFEF</color>
@@ -9,6 +10,7 @@
 
     <color name="background_light">#E5C7FF</color>
     <color name="bars_light">#BEA0EF</color>
+    <color name="inbars_light">#DDFFE7</color>
     <color name="status_light">#863FFA</color>
     <color name="boxes_light">#F7F7F7</color>
     <color name="text_light">#3C4240</color>
