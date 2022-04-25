@@ -2,6 +2,7 @@ package com.example.olio_ht;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.CompoundButton;
@@ -154,7 +156,6 @@ public class Search extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
@@ -190,33 +191,25 @@ public class Search extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
-        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkbox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    DB.changeArea(area, 1);
-                }
+            public void onClick(View view) {
+                DB.changeArea(area, 1);
             }
         });
-        checkbox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkbox2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    DB.changeArea(area, 2);
-                    System.out.println(DB.getAll());
-                }
+            public void onClick(View view) {
+                DB.changeArea(area, 2);
             }
         });
-        checkbox3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkbox3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    DB.changeArea(area, 3);
-                }
+            public void onClick(View view) {
+                DB.changeArea(area, 3);
             }
         });
 

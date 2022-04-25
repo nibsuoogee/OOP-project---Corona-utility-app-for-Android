@@ -112,10 +112,8 @@ public class Settings extends AppCompatActivity {
         buttonNight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 recreate();
-                System.out.println(DB.getAll());
             }
         });
 
@@ -124,7 +122,6 @@ public class Settings extends AppCompatActivity {
             public void onClick(View view) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 recreate();
-                System.out.println(DB.getAll());
             }
         });
     }

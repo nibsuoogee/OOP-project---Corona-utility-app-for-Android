@@ -57,11 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i=1; i<4; i++) {
             areax = DB.getArea(i);
-            if (areax == null) {
-                System.out.println("AreaxNULL");
-                continue;
-            }
-            System.out.println("Areax:___" +areax);
             try {
                 if (am.readInfectionJSON(areax) && am.readVaccinationJSON(areax)) {
                     am.getWeeks();
@@ -89,11 +84,10 @@ public class MainActivity extends AppCompatActivity {
                     textViewVaccinationsVal.setText(vaccinations);
                 }
             } catch (JSONException e) {
-
+                e.printStackTrace();
             }
-
         }
-
+        DB.close();
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
 

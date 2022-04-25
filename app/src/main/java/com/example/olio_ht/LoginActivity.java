@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this,getString(R.string.invalid_credentials), Toast.LENGTH_LONG).show();
                     }
                 }
-
             }
         });
 

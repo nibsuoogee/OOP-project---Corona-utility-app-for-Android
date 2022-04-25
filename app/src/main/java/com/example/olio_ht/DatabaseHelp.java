@@ -141,7 +141,6 @@ public class DatabaseHelp extends SQLiteOpenHelper {
         }
         @SuppressLint("Range") String area = cursor.getString(cursor.getColumnIndex(areax));
         cursor.close();
-        MyDB.close();
         return area;
     }
 
