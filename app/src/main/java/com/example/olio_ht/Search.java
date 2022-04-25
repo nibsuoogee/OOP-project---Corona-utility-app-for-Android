@@ -207,6 +207,7 @@ public class Search extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
                     DB.changeArea(area, 2);
+                    System.out.println(DB.getAll());
                 }
             }
         });

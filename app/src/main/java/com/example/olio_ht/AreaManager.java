@@ -176,7 +176,7 @@ public class AreaManager {
         return(latestWeek);
     }
 
-    public void readInfectionJSON (String label) throws JSONException {
+    public boolean readInfectionJSON (String label) throws JSONException {
         URL url = null;
         AreaCode acl = areaCodeListInf.stream()
                 .filter(acl1 -> acl1.getLabel().equals(label))
@@ -187,6 +187,10 @@ public class AreaManager {
                     +acl.getId()+"-"+acl.getSid()+".&column=dateweek20200101-509030&filter=measure-444833");
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            return(false);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return(false);
         }
         String json= getJSON(url);
         JSONObject jObject = null;
@@ -246,9 +250,10 @@ public class AreaManager {
                 iw.setValueValue(newValueValue);
             }
         }
+        return(true);
     }
 
-    public void readVaccinationJSON (String label) throws JSONException {
+    public boolean readVaccinationJSON (String label) throws JSONException {
         URL url = null;
         AreaCode acl = areaCodeListVac.stream()
                 .filter(acl1 -> acl1.getLabel().equals(label))
@@ -259,6 +264,10 @@ public class AreaManager {
                     +acl.getId()+"-"+acl.getSid()+".&column=dateweek20201226-525425&filter=measure-533175");
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            return(false);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return(false);
         }
         String json= getJSON(url);
         JSONObject jObject = null;
@@ -317,6 +326,7 @@ public class AreaManager {
                 vw.setValueValue(newValueValue);
             }
         }
+        return(true);
     }
 
     public ArrayList<AreaCode> readJSONid (URL url) throws JSONException {

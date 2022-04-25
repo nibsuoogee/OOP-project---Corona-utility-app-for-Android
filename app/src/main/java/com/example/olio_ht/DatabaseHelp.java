@@ -108,8 +108,25 @@ public class DatabaseHelp extends SQLiteOpenHelper {
         } else if (i == 3) {
             cv.put("area3", area);
         }
-        MyDB.update("users" , cv, "iscurrentuser = 'true'", new String[]{});
+        int count = MyDB.update("users" , cv, "iscurrentuser = 'true'", new String[]{});
+        System.out.println("Count: " + count);
         MyDB.close();
+    }
+
+    public String getAll() {
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("Select * from users where iscurrentuser='true' ", new String[] {});
+        cursor.moveToFirst();
+        @SuppressLint("Range") String all = cursor.getString(cursor.getColumnIndex("username")) + " "
+                + cursor.getString(cursor.getColumnIndex("password")) + " "
+                + cursor.getString(cursor.getColumnIndex("iscurrentuser")) + " "
+                + cursor.getString(cursor.getColumnIndex("area1")) + " "
+                + cursor.getString(cursor.getColumnIndex("area2")) + " "
+                + cursor.getString(cursor.getColumnIndex("area3")) + " "
+                + cursor.getString(cursor.getColumnIndex("salt")) + " ";
+        cursor.close();
+        MyDB.close();
+        return all;
     }
 
     public String getArea(int i) {
@@ -131,7 +148,10 @@ public class DatabaseHelp extends SQLiteOpenHelper {
     public String getSalt(String username) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("Select * from users where username = ?", new String[] {username});
-        cursor.moveToFirst();
+        if (!cursor.moveToFirst()) {
+            String fail = "";
+            return(fail);
+        }
         @SuppressLint("Range") String salt = cursor.getString(cursor.getColumnIndex("salt"));
         cursor.close();
         MyDB.close();

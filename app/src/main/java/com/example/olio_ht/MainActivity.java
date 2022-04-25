@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         DB = new DatabaseHelp(this);
         name.setText(DB.getUsername());
         am = AreaManager.getInstance();
+
         for (int i=1; i<4; i++) {
             areax = DB.getArea(i);
             if (areax == null) {
@@ -62,34 +63,35 @@ public class MainActivity extends AppCompatActivity {
             }
             System.out.println("Areax:___" +areax);
             try {
-                am.readInfectionJSON(areax);
-                am.readVaccinationJSON(areax);
+                if (am.readInfectionJSON(areax) && am.readVaccinationJSON(areax)) {
+                    am.getWeeks();
+                    week = am.getLatestWeek();
+                    infections = am.getInfection(week);
+                    vaccinations = am.getVaccination(week);
+                    if (i == 1) {
+                        textViewArea = textViewArea1;
+                        textViewInfectionsVal = textViewInfectionsVal1;
+                        textViewVaccinationsVal = textViewVaccinationsVal1;
+                    } else if (i == 2) {
+                        textViewArea = textViewArea2;
+                        textViewInfectionsVal = textViewInfectionsVal2;
+                        textViewVaccinationsVal = textViewVaccinationsVal2;
+                    } else if (i == 3) {
+                        textViewArea = textViewArea3;
+                        textViewInfectionsVal = textViewInfectionsVal3;
+                        textViewVaccinationsVal = textViewVaccinationsVal3;
+                    }
+                    week = week.replace("Vuosi ", "");
+                    week = week.replace("Viikko", getString(R.string.week));
+                    week = week.replace("Kaikki ajat",getString(R.string.all_time));
+                    textViewArea.setText(areax + ": " + week);
+                    textViewInfectionsVal.setText(infections);
+                    textViewVaccinationsVal.setText(vaccinations);
+                }
             } catch (JSONException e) {
 
             }
-            am.getWeeks();
-            week = am.getLatestWeek();
-            infections = am.getInfection(week);
-            vaccinations = am.getVaccination(week);
-            if (i == 1) {
-                textViewArea = textViewArea1;
-                textViewInfectionsVal = textViewInfectionsVal1;
-                textViewVaccinationsVal = textViewVaccinationsVal1;
-            } else if (i == 2) {
-                textViewArea = textViewArea2;
-                textViewInfectionsVal = textViewInfectionsVal2;
-                textViewVaccinationsVal = textViewVaccinationsVal2;
-            } else if (i == 3) {
-                textViewArea = textViewArea3;
-                textViewInfectionsVal = textViewInfectionsVal3;
-                textViewVaccinationsVal = textViewVaccinationsVal3;
-            }
-            week = week.replace("Vuosi ", "");
-            week = week.replace("Viikko", getString(R.string.week));
-            week = week.replace("Kaikki ajat",getString(R.string.all_time));
-            textViewArea.setText(areax + ": " + week);
-            textViewInfectionsVal.setText(infections);
-            textViewVaccinationsVal.setText(vaccinations);
+
         }
 
         // Initialize and assign variable

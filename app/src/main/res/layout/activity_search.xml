@@ -39,6 +39,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <SurfaceView
+                    android:id="@+id/surfaceView10"
+                    android:layout_width="286dp"
+                    android:layout_height="67dp"
+                    android:background="?colorPrimaryContainer"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.61"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.741" />
+
                 <TextView
                     android:id="@+id/textViewInfVal"
                     android:layout_width="wrap_content"
@@ -56,8 +68,10 @@
                     android:id="@+id/textViewArea"
                     android:layout_width="306dp"
                     android:layout_height="27dp"
+                    android:fontFamily="@font/kanit_medium"
                     android:text="Area"
-                    android:textSize="20sp"
+                    android:textColor="@color/text_night"
+                    android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -83,15 +97,14 @@
                     android:id="@+id/textViewInfMain1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:text="@string/infections"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/surfaceView10"
                     app:layout_constraintEnd_toEndOf="@+id/textViewArea"
                     app:layout_constraintHorizontal_bias="0.035"
                     app:layout_constraintStart_toStartOf="@+id/textViewArea"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.363" />
+                    app:layout_constraintTop_toTopOf="@+id/surfaceView10"
+                    app:layout_constraintVertical_bias="0.120000005" />
 
                 <TextView
                     android:id="@+id/textViewVacVal"

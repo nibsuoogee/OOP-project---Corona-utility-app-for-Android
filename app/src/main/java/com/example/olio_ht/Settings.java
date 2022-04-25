@@ -35,7 +35,8 @@ public class Settings extends AppCompatActivity {
     private View view;
     private Spinner spinner;
     private Button logoutbutton;
-    private Button buttonDM, buttonDay;
+    private Button buttonNight, buttonDay;
+    private DatabaseHelp DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +44,10 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         context = Settings.this;
         logoutbutton = (Button) findViewById(R.id.buttonLogout);
-        buttonDM = (Button) findViewById(R.id.buttonDM);
+        buttonNight = (Button) findViewById(R.id.buttonDM);
         buttonDay = (Button) findViewById(R.id.buttonDay);
-
+        DB = new DatabaseHelp(this);
+        System.out.println(DB.getAll());
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
 
@@ -107,11 +109,13 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        buttonDM.setOnClickListener(new View.OnClickListener() {
+        buttonNight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 recreate();
+                System.out.println(DB.getAll());
             }
         });
 
@@ -120,6 +124,7 @@ public class Settings extends AppCompatActivity {
             public void onClick(View view) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 recreate();
+                System.out.println(DB.getAll());
             }
         });
     }
