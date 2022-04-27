@@ -85,11 +85,11 @@ public class Search extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-        context = Search.this;
         DB = new DatabaseHelp(this);
         DB.setUserLastActivity("Search");
+        am = AreaManager.getInstance();
 
+        context = Search.this;
         barChart = findViewById(R.id.chart1);
         checkbox = (CheckBox) findViewById(R.id.checkBox);
         checkbox2 = (CheckBox) findViewById(R.id.checkBox2);
@@ -97,11 +97,9 @@ public class Search extends AppCompatActivity {
         textViewInfectionsVal = (TextView) findViewById(R.id.textViewInfVal);
         textViewVaccinationsVal = (TextView) findViewById(R.id.textViewVacVal);
         textViewArea = (TextView) findViewById(R.id.textViewArea);
-        am = AreaManager.getInstance();
         weekList = new ArrayList<>();
         labelList = am.getLabels();
         Collections.reverse(labelList);
-
         Spinner spinnerAreas = (Spinner) findViewById(R.id.spinnerAreas);
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, labelList);
@@ -118,13 +116,10 @@ public class Search extends AppCompatActivity {
                     Collections.reverse(weekList);
                     adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, weekList);
                     spinnerWeeks.setAdapter(adapter1);
-
                     infectionList = am.getInfections();
                     vaccinationsList = am.getVaccinations();
-
                     XAxis xAxis = barChart.getXAxis();
                     xAxis.setValueFormatter(new LineChartXAxisValueFormatter());
-
                     BarDataSet barDataSet1 = new BarDataSet(infectionList, getString(R.string.infections));
                     BarDataSet barDataSet2 = new BarDataSet(vaccinationsList, getString(R.string.vaccinations));
                     barDataSet1.setColor(getResources().getColor(R.color.infections));
@@ -133,15 +128,12 @@ public class Search extends AppCompatActivity {
                     barDataSet2.setColor(getResources().getColor(R.color.vaccinations));
                     barDataSet2.setBarBorderWidth(0.5f);
                     barDataSet2.setBarBorderColor(Color.CYAN);
-
                     BarData data = new BarData();
                     data.addDataSet(barDataSet2);
                     data.addDataSet(barDataSet1);
-
                     data.setBarWidth(4e8f);
                     data.setValueTextSize(10f);
                     data.setDrawValues(false);
-
                     barChart.getAxisLeft().setTextSize(13f);
                     barChart.getAxisRight().setTextSize(13f);
                     barChart.getXAxis().setTextSize(11f);
@@ -154,7 +146,6 @@ public class Search extends AppCompatActivity {
                     barChart.setMaxVisibleValueCount(700);
                     barChart.setData(data);
                     barChart.invalidate();
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

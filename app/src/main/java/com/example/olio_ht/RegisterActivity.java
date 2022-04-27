@@ -128,6 +128,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    // Takes language locale identifier, e.g. "fi", and updates resource configuration
+    // to change UI language
     private void setLocale(String language) {
         Resources resources =getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -136,7 +139,6 @@ public class RegisterActivity extends AppCompatActivity {
         resources.updateConfiguration(configuration,metrics);
         onConfigurationChanged(configuration);
     }
-
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);

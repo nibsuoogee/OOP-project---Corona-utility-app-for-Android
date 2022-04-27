@@ -5,6 +5,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 public class HashFunction {
+
+    // Takes password and salt strings, generates SHA-512 hash form, returns hash string
     public static String getHash(String inputStringBytes, String salt) {
         String hashValue = inputStringBytes;
         try {
@@ -23,6 +25,7 @@ public class HashFunction {
         return hashValue;
     }
 
+    // Generates and returns random salt string
     public static String createSalt() {
         byte[] bytes = new byte[20];
         SecureRandom rnd = new SecureRandom();

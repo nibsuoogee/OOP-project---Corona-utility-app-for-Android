@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        DB = new DatabaseHelp(this);
+        DB.setUserLastActivity("MainActivity");
+        am = AreaManager.getInstance();
 
         name = (TextView) findViewById(R.id.textViewUserName);
         textViewInfectionsVal1 = (TextView) findViewById(R.id.textViewInfVal);
@@ -51,10 +54,8 @@ public class MainActivity extends AppCompatActivity {
         textViewInfectionsVal3 = (TextView) findViewById(R.id.textViewInfValMain3);
         textViewVaccinationsVal3 = (TextView) findViewById(R.id.textViewVacValMain3);
         textViewArea3 = (TextView) findViewById(R.id.textViewAreaMain3);
-        DB = new DatabaseHelp(this);
-        DB.setUserLastActivity("MainActivity");
+
         name.setText(DB.getUsername());
-        am = AreaManager.getInstance();
 
         for (int i=1; i<4; i++) {
             areax = DB.getArea(i);
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         DB.close();
+
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
 

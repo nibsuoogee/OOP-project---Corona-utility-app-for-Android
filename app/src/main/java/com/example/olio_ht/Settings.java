@@ -45,14 +45,14 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        DB = new DatabaseHelp(this);
+        DB.setUserLastActivity("Settings");
 
         context = Settings.this;
         logoutbutton = (Button) findViewById(R.id.buttonLogout);
         buttonNight = (Button) findViewById(R.id.buttonDM);
         buttonDay = (Button) findViewById(R.id.buttonDay);
-        DB = new DatabaseHelp(this);
-        DB.setUserLastActivity("Settings");
-        System.out.println(DB.getAll());
+
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
 
@@ -99,10 +99,8 @@ public class Settings extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
@@ -133,6 +131,8 @@ public class Settings extends AppCompatActivity {
         });
     }
 
+    // Takes language locale identifier, e.g. "fi", and updates resource configuration
+    // to change UI language
     private void setLocale(String language) {
         Resources resources = getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -141,7 +141,6 @@ public class Settings extends AppCompatActivity {
         resources.updateConfiguration(configuration,metrics);
         onConfigurationChanged(configuration);
     }
-
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);

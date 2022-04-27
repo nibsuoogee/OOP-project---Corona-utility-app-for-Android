@@ -61,6 +61,7 @@ public class AreaManager {
         return am;
     }
 
+    // AreaManager constructor, sets URLs for infection and vaccination ID + SID API dictionaries
     private AreaManager() {
         areaCodeListInf = new ArrayList<>();
         areaCodeListVac = new ArrayList<>();
@@ -80,6 +81,7 @@ public class AreaManager {
         }
     }
 
+    // Takes area label, e.g. Espoo, filters through list of InfectionWeek objects, returns number of infections
     public String getInfection(String label) {
         InfectionWeek ew = InfectionList.stream()
                 .filter(ew1 -> ew1.getLabelValue().equals(label))
@@ -88,6 +90,7 @@ public class AreaManager {
         return(ew.getValueValue());
     }
 
+    // Takes area label, e.g. Espoo, filters through list of VaccinationWeek objects, returns number of vaccinations
     public String getVaccination(String label) {
         VaccinationWeek vw = VaccinationList.stream()
                 .filter(vw1 -> vw1.getLabelValue().equals(label))
@@ -102,6 +105,7 @@ public class AreaManager {
         return(vw.getValueValue());
     }
 
+    // Goes through InfectionWeek object list, for each object append a bar graph entry-object with date and number of infections
     public List<BarEntry> getInfections() {
         infectionsList.clear();
         for(InfectionWeek ew: InfectionList) {
@@ -128,6 +132,7 @@ public class AreaManager {
         return(infectionsList);
     }
 
+    // Goes through VaccinationWeek object list, for each object append a bar graph entry-object with date and number of vaccinations
     public List<BarEntry> getVaccinations() {
         vaccinationsList.clear();
         for(VaccinationWeek vw: VaccinationList) {
@@ -154,6 +159,7 @@ public class AreaManager {
         return(vaccinationsList);
     }
 
+    // Goes through list of AreaCode objects and returns names of areas
     public ArrayList<String> getLabels() {
         for(AreaCode ac: areaCodeListInf) {
             labelList.add(ac.getLabel());
@@ -161,6 +167,7 @@ public class AreaManager {
         return(labelList);
     }
 
+    // Goes through list of InfectionWeek objects and appends week identifier
     public ArrayList<String> getWeeks() {
         for(InfectionWeek ew: InfectionList) {
             if (ew.getValueValue() != null) {
@@ -173,11 +180,14 @@ public class AreaManager {
         return(weekList);
     }
 
+    // Returns identifier of latest week defined in getWeeks()-function
     public String getLatestWeek() {
         return(latestWeek);
     }
 
+    // Takes area label, e.g. Espoo, performs json request, generates InfectionWeek java object list from json string
     public boolean readInfectionJSON (String label) throws JSONException {
+        // Forming API request url for label
         URL url = null;
         AreaCode acl = areaCodeListInf.stream()
                 .filter(acl1 -> acl1.getLabel().equals(label))
@@ -193,15 +203,15 @@ public class AreaManager {
             e.printStackTrace();
             return(false);
         }
+
+        // Using getJSON() to perform API request, forming JSONObjects from returned json string
         String json= getJSON(url);
         JSONObject jObject = null;
         try {
-
             jObject = new JSONObject(json);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         JSONObject jIndex = null;
         try {
             jIndex = jObject.getJSONObject("dataset")
@@ -212,7 +222,6 @@ public class AreaManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         JSONObject jLabel = null;
         try {
             jLabel = jObject.getJSONObject("dataset")
@@ -223,15 +232,6 @@ public class AreaManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        InfectionList = new ArrayList<>();
-        for(int i = 0; i<jIndex.names().length(); i++){
-            InfectionWeek iw = new InfectionWeek(jIndex.names().getString(i),
-                    jIndex.get(jIndex.names().getString(i)).toString(),
-                    jLabel.get(jLabel.names().getString(i)).toString());
-            InfectionList.add(iw);
-        }
-
         JSONObject jValue = null;
         try {
             jValue = jObject.getJSONObject("dataset")
@@ -240,6 +240,15 @@ public class AreaManager {
             e.printStackTrace();
         }
 
+        // Going through JSONObjects for infection values and week identifiers and
+        // appending them as combined objects to InfectionWeek list
+        InfectionList = new ArrayList<>();
+        for(int i = 0; i<jIndex.names().length(); i++){
+            InfectionWeek iw = new InfectionWeek(jIndex.names().getString(i),
+                    jIndex.get(jIndex.names().getString(i)).toString(),
+                    jLabel.get(jLabel.names().getString(i)).toString());
+            InfectionList.add(iw);
+        }
         for(int i = 0; i<jValue.names().length(); i++){
             String newValuekey = jValue.names().getString(i);
             String newValueValue = jValue.get(jValue.names().getString(i)).toString();
@@ -254,7 +263,9 @@ public class AreaManager {
         return(true);
     }
 
+    // Takes area label, e.g. Espoo, performs json request, generates VaccinationWeek java object list from json string
     public boolean readVaccinationJSON (String label) throws JSONException {
+        // Forming API request url for label
         URL url = null;
         AreaCode acl = areaCodeListVac.stream()
                 .filter(acl1 -> acl1.getLabel().equals(label))
@@ -270,6 +281,8 @@ public class AreaManager {
             e.printStackTrace();
             return(false);
         }
+
+        // Using getJSON() to perform API request, forming JSONObjects from returned json string
         String json= getJSON(url);
         JSONObject jObject = null;
         try {
@@ -277,7 +290,6 @@ public class AreaManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         JSONObject jIndex = null;
         try {
             jIndex = jObject.getJSONObject("dataset")
@@ -288,7 +300,6 @@ public class AreaManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         JSONObject jLabel = null;
         try {
             jLabel = jObject.getJSONObject("dataset")
@@ -299,15 +310,6 @@ public class AreaManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        VaccinationList = new ArrayList<>();
-        for(int i = 0; i<jIndex.names().length(); i++){
-            VaccinationWeek vw = new VaccinationWeek(jIndex.names().getString(i),
-                    jIndex.get(jIndex.names().getString(i)).toString(),
-                    jLabel.get(jLabel.names().getString(i)).toString());
-            VaccinationList.add(vw);
-        }
-
         JSONObject jValue = null;
         try {
             jValue = jObject.getJSONObject("dataset")
@@ -316,6 +318,15 @@ public class AreaManager {
             e.printStackTrace();
         }
 
+        // Going through JSONObjects for vaccination values and week identifiers and
+        // appending them as combined objects to VaccinationWeek list
+        VaccinationList = new ArrayList<>();
+        for(int i = 0; i<jIndex.names().length(); i++){
+            VaccinationWeek vw = new VaccinationWeek(jIndex.names().getString(i),
+                    jIndex.get(jIndex.names().getString(i)).toString(),
+                    jLabel.get(jLabel.names().getString(i)).toString());
+            VaccinationList.add(vw);
+        }
         for(int i = 0; i<jValue.names().length(); i++){
             String newValuekey = jValue.names().getString(i);
             String newValueValue = jValue.get(jValue.names().getString(i)).toString();
@@ -330,19 +341,21 @@ public class AreaManager {
         return(true);
     }
 
+    // Takes url for infection and vaccination ID + SID API dictionaries, returns list of
+    // AreaCode objects, which contain ID, SID, and Area label, e.g. Espoo, and are used
+    // for making area specific API requests
     public ArrayList<AreaCode> readJSONid (URL url) throws JSONException {
         String json = getJSON(url);
         JSONArray jArray = null;
+        // Regex removes unnecessary characters from json string
         try {
             json = json.replaceFirst("thl.pivot.loadDimensions"+"[(]","");
             json = json.replace("$[)][;]","");
             System.out.println("json: "+json);
             jArray = new JSONArray(json);
         } catch (JSONException e) {
-            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%% FAIL");
             e.printStackTrace();
         }
-
         JSONArray jSHP = null;
         try {
             jSHP = jArray.getJSONObject(0)
@@ -366,6 +379,7 @@ public class AreaManager {
         return(areaCodeList);
     }
 
+    // Takes a url and performs "GET" request to API, returns response json string
     public String getJSON(URL url) {
         String response = null;
         try {
@@ -388,8 +402,6 @@ public class AreaManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return response;
     }
-
 }
