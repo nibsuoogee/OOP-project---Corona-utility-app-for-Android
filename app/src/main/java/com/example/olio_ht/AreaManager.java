@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.NetworkOnMainThreadException;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -332,10 +333,10 @@ public class AreaManager {
     public ArrayList<AreaCode> readJSONid (URL url) throws JSONException {
         String json = getJSON(url);
         JSONArray jArray = null;
-        json = json.replaceFirst("thl.pivot.loadDimensions"+"[(]","");
-        json = json.replace("$[)][;]","");
-        System.out.println("json: "+json);
         try {
+            json = json.replaceFirst("thl.pivot.loadDimensions"+"[(]","");
+            json = json.replace("$[)][;]","");
+            System.out.println("json: "+json);
             jArray = new JSONArray(json);
         } catch (JSONException e) {
             System.out.println("%%%%%%%%%%%%%%%%%%%%%%%% FAIL");

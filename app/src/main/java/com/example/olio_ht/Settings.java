@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -42,11 +43,15 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         context = Settings.this;
         logoutbutton = (Button) findViewById(R.id.buttonLogout);
         buttonNight = (Button) findViewById(R.id.buttonDM);
         buttonDay = (Button) findViewById(R.id.buttonDay);
         DB = new DatabaseHelp(this);
+        DB.setUserLastActivity("Settings");
         System.out.println(DB.getAll());
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
@@ -112,6 +117,7 @@ public class Settings extends AppCompatActivity {
         buttonNight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DB.setNightMode("on");
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 recreate();
             }
@@ -120,6 +126,7 @@ public class Settings extends AppCompatActivity {
         buttonDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DB.setNightMode("off");
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 recreate();
             }
@@ -127,7 +134,7 @@ public class Settings extends AppCompatActivity {
     }
 
     private void setLocale(String language) {
-        Resources resources =getResources();
+        Resources resources = getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         Configuration configuration = resources.getConfiguration();
         configuration.locale = new Locale(language);

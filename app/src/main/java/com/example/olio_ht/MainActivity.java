@@ -14,7 +14,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
-
     private TextView name;
     private DatabaseHelp DB;
     private AreaManager am;
@@ -41,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
         name = (TextView) findViewById(R.id.textViewUserName);
         textViewInfectionsVal1 = (TextView) findViewById(R.id.textViewInfVal);
         textViewVaccinationsVal1 = (TextView) findViewById(R.id.textViewVacVal);
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         textViewVaccinationsVal3 = (TextView) findViewById(R.id.textViewVacValMain3);
         textViewArea3 = (TextView) findViewById(R.id.textViewAreaMain3);
         DB = new DatabaseHelp(this);
+        DB.setUserLastActivity("MainActivity");
         name.setText(DB.getUsername());
         am = AreaManager.getInstance();
 

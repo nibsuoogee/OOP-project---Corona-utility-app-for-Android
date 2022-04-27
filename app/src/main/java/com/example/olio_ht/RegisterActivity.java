@@ -71,7 +71,9 @@ public class RegisterActivity extends AppCompatActivity {
                             //if (PASSWORD_PATTERN.matcher(pass).matches()) {
                                 salt = createSalt();
                                 pass = getHash(pass, salt);
-                                Boolean insert = DB.insertData(user, pass, "false", "Espoo", "Helsinki", "Vantaa", salt);
+                                Boolean insert = DB.insertData(user, pass,
+                                        "false", "Espoo", "Helsinki", "Vantaa", salt,
+                                        "MainActivity", "off");
                                 if (insert == true) {
                                     progressbar.setVisibility(View.VISIBLE);
                                     Toast.makeText(RegisterActivity.this,getString(R.string.successful_register), Toast.LENGTH_LONG).show();

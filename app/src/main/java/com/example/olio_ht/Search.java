@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
@@ -82,8 +83,13 @@ public class Search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         context = Search.this;
         DB = new DatabaseHelp(this);
+        DB.setUserLastActivity("Search");
+
         barChart = findViewById(R.id.chart1);
         checkbox = (CheckBox) findViewById(R.id.checkBox);
         checkbox2 = (CheckBox) findViewById(R.id.checkBox2);
