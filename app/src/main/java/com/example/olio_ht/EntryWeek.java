@@ -1,6 +1,6 @@
 package com.example.olio_ht;
 
-public class EntryWeek {
+public abstract class EntryWeek {
     private String indexKey;
     private String indexValue;
     private String valueKey;

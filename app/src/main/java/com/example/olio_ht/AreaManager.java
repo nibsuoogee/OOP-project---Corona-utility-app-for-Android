@@ -52,8 +52,8 @@ public class AreaManager {
     private String latestWeek;
     private Timestamp timestamp;
 
+    // Singleton class implementation
     private static AreaManager am = null;
-
     public static AreaManager getInstance() {
         if (am == null) {
             am = new AreaManager();

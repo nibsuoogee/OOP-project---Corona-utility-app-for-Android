@@ -198,7 +198,8 @@ public class DatabaseHelp extends SQLiteOpenHelper {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("Select * from users where iscurrentuser='true' ", new String[] {});
         cursor.moveToFirst();
-        @SuppressLint("Range") String all = cursor.getString(cursor.getColumnIndex("username")) + " "
+        @SuppressLint("Range") String all = "All user details:  "
+                + cursor.getString(cursor.getColumnIndex("username")) + " "
                 + cursor.getString(cursor.getColumnIndex("password")) + " "
                 + cursor.getString(cursor.getColumnIndex("iscurrentuser")) + " "
                 + cursor.getString(cursor.getColumnIndex("area1")) + " "

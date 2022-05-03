@@ -68,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (pass.equals(repass)) {
                         Boolean checkuser = DB.checkUsername(user);
                         if (checkuser == false) {
-                            //if (PASSWORD_PATTERN.matcher(pass).matches()) {
+                            if (PASSWORD_PATTERN.matcher(pass).matches()) {
                                 salt = createSalt();
                                 pass = getHash(pass, salt);
                                 Boolean insert = DB.insertData(user, pass,
@@ -80,9 +80,9 @@ public class RegisterActivity extends AppCompatActivity {
                                     DB.makeCurrent(user, pass);
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
-                                //} else {
-                                //    Toast.makeText(RegisterActivity.this,getString(R.string.failed_register), Toast.LENGTH_LONG).show();
-                                //}
+                                } else {
+                                    Toast.makeText(RegisterActivity.this,getString(R.string.failed_register), Toast.LENGTH_LONG).show();
+                                }
                             } else {
                                 password.setError(getString(R.string.weak_pass));
                             }
